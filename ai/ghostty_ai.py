@@ -1,8 +1,23 @@
 #!/usr/bin/env python3
-import ollama
+# Requirements:
+# - Install ollama Python package: pip install ollama
+# - Install and run Ollama service:
+#   - macOS (brew): brew install ollama && ollama serve
+#   - Other: https://ollama.ai
+
 import sys
 import os
 import json
+
+try:
+    import ollama
+except ImportError:
+    print("Error: ollama package not found.")
+    print("Please install it using: pip install ollama")
+    print("Also ensure Ollama service is running:")
+    print("  - macOS: brew install ollama && ollama serve")
+    print("  - Other: https://ollama.ai")
+    sys.exit(1)
 
 def get_command_from_ollama(prompt):
     """
