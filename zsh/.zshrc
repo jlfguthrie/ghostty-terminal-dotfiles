@@ -44,7 +44,7 @@ else
 fi
 export COLORTERM="truecolor"
 
-# Enhanced Ghostty shell integration 
+# Enhanced Ghostty shell integration
 # Ghostty automatically injects shell integration, but we add manual fallback
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     # Verify automatic integration is working
@@ -52,24 +52,24 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
         # Fallback to manual integration if auto-injection failed
         builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration" 2>/dev/null || true
     fi
-    
+
     # Enhanced terminal title for better VS Code integration
     autoload -Uz add-zsh-hook
-    
+
     function ghostty_set_title() {
         # Set both tab title and window title
         print -Pn "\e]0;%n@%m: %~\a"
         print -Pn "\e]1;%~\a"
     }
-    
+
     add-zsh-hook precmd ghostty_set_title
-    
+
     # Mark command boundaries for better semantic selection
     function ghostty_preexec() {
         # Mark the start of command execution
         print -Pn "\e]133;C\a"
     }
-    
+
     add-zsh-hook preexec ghostty_preexec
 fi
 
@@ -98,7 +98,7 @@ export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOBIN"
 
-# Rust development  
+# Rust development
 export CARGO_HOME="$HOME/.cargo"
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -109,6 +109,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Deno
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+# VS Code command line tools
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
 # ============================================================================
 # MODERN COMMAND REPLACEMENTS - 2025 Edition
@@ -299,7 +302,7 @@ killp() {
         ps aux | grep -v grep | awk '{print $11}' | sort | uniq
         return 1
     fi
-    
+
     local pids=$(ps aux | grep -i "$1" | grep -v grep | awk '{print $2}')
     if [ -n "$pids" ]; then
         echo "Killing processes matching '$1':"
@@ -320,7 +323,7 @@ mkcd() {
 initproj() {
     local name=${1:-$(basename $(pwd))}
     local type=${2:-node}
-    
+
     case $type in
         node|js|javascript)
             npm init -y
@@ -345,7 +348,7 @@ initproj() {
             return 1
             ;;
     esac
-    
+
     git init
     echo "# $name" > README.md
     git add .
@@ -515,24 +518,24 @@ fi
 if command -v fzf &> /dev/null; then
     # Key bindings
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-    
+
     # Custom functions using fzf
     fcd() {
         local dir
         dir=$(fd --type d 2> /dev/null | fzf --preview 'eza --tree --level=2 {}' || find . -type d 2> /dev/null | fzf) && cd "$dir"
     }
-    
+
     fcode() {
         local file
         file=$(fd --type f 2> /dev/null | fzf --preview 'bat --color=always {}' || find . -type f 2> /dev/null | fzf) && code "$file"
     }
-    
+
     # Git integration with fzf
     fgco() {
         local branch
         branch=$(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u | fzf) && git checkout "$branch"
     }
-    
+
     # Process killer with fzf
     fkill() {
         local pid
