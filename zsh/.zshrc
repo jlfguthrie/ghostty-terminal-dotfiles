@@ -422,7 +422,7 @@ alias dcl='docker-compose logs'
 alias dcr='docker-compose restart'
 
 # Advanced docker functions
-dsh() {
+dockershell() {
   local container=${1:-$(docker ps --format "{{.Names}}" | head -1)}
   if [ -n "$container" ]; then
     echo "🐚 Entering container: $container"
@@ -432,7 +432,7 @@ dsh() {
   fi
 }
 
-dlogs() {
+dockerlogs() {
   local container=${1:-$(docker ps --format "{{.Names}}" | head -1)}
   if [ -n "$container" ]; then
     docker logs -f "$container"
@@ -454,7 +454,7 @@ alias kctx='kubectl config current-context'
 alias kns='kubectl config view --minify --output "jsonpath={..namespace}"'
 
 # Enhanced kubernetes functions
-kshell() {
+kubeshell() {
   local pod=${1:-$(kubectl get pods -o name | head -1 | cut -d/ -f2)}
   if [ -n "$pod" ]; then
     echo "🐚 Entering pod: $pod"
@@ -474,7 +474,7 @@ export VISUAL='code --wait'
 export GIT_EDITOR='code --wait'
 
 # Terminal and color support
-export TERM='ghostty'
+export TERM='xterm-256color'
 export COLORTERM='truecolor'
 
 # Optimize for Ghostty's capabilities
@@ -498,17 +498,8 @@ setopt SHARE_HISTORY
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 
-# Enhanced completion system
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
-zstyle ':completion:*' menu select
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%F{yellow}%d%f'
-
-# Faster completion loading
-autoload -Uz compinit
-compinit -C # Use fast loading by default
+# Source custom aliases
+source /Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/zsh/aliases.sh
 
 # ============================================================================
 # POWERLEVEL10K INSTANT PROMPT

@@ -339,62 +339,29 @@ install_vscode_extensions() {
   fi
 }
 
+# Install Python dependencies for AI integration
+install_ai_dependencies() {
+  print_status "Setting up Python virtual environment for AI features..."
+  python3 -m venv "$SCRIPT_DIR/.venv"
+  print_status "Installing Python dependencies..."
+  "$SCRIPT_DIR/.venv/bin/pip" install -r "$SCRIPT_DIR/requirements.txt"
+  print_success "AI dependencies installed."
+}
+
 # Main installation function
 main() {
-  echo -e "${BLUE}"
-  echo "======================================"
-  echo "  Dotfiles Configuration Installer"
-  echo "  Optimized for Ghostty + VS Code"
-  echo "======================================"
-  echo -e "${NC}"
-
-  check_requirements
   create_backup
 
   print_status "Starting installation..."
 
   install_oh_my_zsh
   install_powerlevel10k
-  install_zsh_plugins
-  install_modern_tools
-  install_programming_languages
   install_zsh_config
   install_ghostty_config
-  configure_ghostty
-  configure_vscode
+  install_ai_dependencies
 
-  echo -e "${GREEN}"
-  echo "======================================"
-  echo "  Installation Complete!"
-  echo "======================================"
-  echo -e "${NC}"
-
-  print_success "All configurations have been installed successfully!"
-  print_status "Backup created at: $BACKUP_DIR"
-
-  echo ""
-  print_status "Next steps:"
-  echo "  1. Restart Ghostty or run: source ~/.zshrc"
-  echo "  2. Run: p10k configure (if using Powerlevel10k for the first time)"
-  echo "  3. Install VS Code extensions for better integration:"
-  echo "     - GitLens"
-  echo "     - Better Comments"
-  echo "     - Bracket Pair Colorizer"
-  echo "     - Auto Rename Tag"
-  echo "  4. Set Ghostty as your default terminal in System Settings"
-  echo "  5. Test Ghostty shell integration with: cmd+up/down for prompt navigation"
-  echo ""
-
-  print_status "Ghostty Features to Explore:"
-  echo "  - Alt+click to move cursor to click location"
-  echo "  - Triple-click+cmd to select command output"
-  echo "  - cmd+shift+, to reload configuration"
-  echo "  - Built-in theme switching with light/dark mode"
-  echo ""
-
-  print_warning "If you encounter any issues, check the backup directory for your previous configurations."
-  print_status "For Ghostty documentation, visit: https://ghostty.org/docs"
+  print_success "All dotfiles installed successfully!"
+  print_warning "Please restart your terminal for all changes to take effect."
 }
 
-# Run main function
-main "$@"
+main

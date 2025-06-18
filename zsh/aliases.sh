@@ -71,89 +71,67 @@ alias theme-light='printf "\033]1337;SetProfile=Light\007"'
 # DEVELOPMENT WORKFLOW ALIASES - 2025 Edition
 # ============================================================================
 
-# Enhanced Git workflow shortcuts
-alias g='git'
-alias gs='git status --short --branch'
-alias ga='git add'
-alias gaa='git add --all'
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gca='git commit --amend'
-alias gcan='git commit --amend --no-edit'
-alias gp='git push'
-alias gpo='git push origin'
-alias gpf='git push --force-with-lease'
-alias gl='git pull'
-alias glo='git log --oneline --graph --decorate --all -10'
-alias glol='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gb='git branch'
-alias gba='git branch --all'
-alias gco='git checkout'
-alias gcb='git checkout -b'
-alias gcm='git checkout main || git checkout master'
-alias gcd='git checkout develop'
-alias gm='git merge'
-alias gr='git rebase'
-alias gri='git rebase -i'
-alias gst='git stash'
-alias gstp='git stash pop'
-alias gsta='git stash apply'
-alias gstd='git stash drop'
-alias gstl='git stash list'
+# NOTE: Many common aliases (e.g., for git, docker, kubectl) are now provided
+# by Oh My Zsh plugins to avoid conflicts and improve maintainability.
+# See the `plugins` array in ~/.zshrc for the full list.
 
-# Git utilities that work well with Ghostty's semantic selection
-alias git-clean='git branch --merged | grep -v "\*" | grep -v "main\|master\|develop" | xargs -n 1 git branch -d'
-alias git-undo='git reset --soft HEAD~1'
-alias git-amend='git commit --amend --no-edit'
-alias git-conflicts='git diff --name-only --diff-filter=U'
-alias git-ignore='git update-index --assume-unchanged'
-alias git-track='git update-index --no-assume-unchanged'
-
-# ============================================================================
-# MODERN COMMAND REPLACEMENTS - 2025 Edition
-# ============================================================================
-
-# Text processing with enhanced tools
-if command -v bat &>/dev/null; then
-  alias cat='bat --style=auto --theme=auto'
-  alias less='bat --style=auto --theme=auto'
-elif command -v batcat &>/dev/null; then
-  alias cat='batcat --style=auto --theme=auto'
-  alias less='batcat --style=auto --theme=auto'
-fi
-
-# Enhanced searching and navigation
-command -v fd &>/dev/null && alias find='fd'
-command -v rg &>/dev/null && alias grep='rg --smart-case'
-command -v procs &>/dev/null && alias ps='procs'
-command -v dust &>/dev/null && alias du='dust'
-command -v bottom &>/dev/null && alias top='btm'
-command -v duf &>/dev/null && alias df='duf'
-command -v httpie &>/dev/null && alias http='http --style=auto'
-
-# Quick navigation with zoxide if available
-command -v zoxide &>/dev/null && {
-  alias cd='z'
-  alias cdi='zi'
-}
-
-# ============================================================================
-# VS CODE INTEGRATION - Enhanced for 2025
-# ============================================================================
-
-# VS Code shortcuts optimized for Ghostty workflow
+# Quick navigation
 alias c.='code .'
 alias cr='code -r .'
-alias ci='code --insiders'
-alias cw='code --wait'
-alias cn='code --new-window'
-alias co='code --reuse-window'
 
-# Quick file operations
-alias ce='code --extensions-dir'
-alias cs='code --user-data-dir'
+# Enhanced project management
+cproj() {
+  local project_name=${1:-$(basename "$(pwd)")}
+  local template=${2:-basic}
+
+  echo "🚀 Creating new project: $project_name using $template template"
+
+  case $template in
+  basic)
+    mkdir "$project_name" && cd "$project_name"
+    echo "# $project_name" >README.md
+    ;;
+  node)
+    mkdir "$project_name" && cd "$project_name"
+    npm init -y
+    printf "node_modules/\n*.log\n.env\n" >.gitignore
+    echo "console.log('Hello, $project_name!');" >index.js
+    ;;
+  python)
+    mkdir "$project_name" && cd "$project_name"
+    python3 -m venv venv
+    printf "venv/\n__pycache__/\n*.pyc\n.env\n" >.gitignore
+    echo "print('Hello, $project_name!')" >main.py
+    printf "# %s\n\nA Python project.\n" "$project_name" >README.md
+    ;;
+  go)
+    mkdir "$project_name" && cd "$project_name"
+    go mod init "$project_name"
+    printf "# %s\n\nA Go project.\n" "$project_name" >README.md
+    cat >main.go <<EOF
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, $project_name!")
+}
+EOF
+    ;;
+  rust)
+    cargo new "$project_name" --bin
+    ;;
+  next)
+    npx create-next-app@latest "$project_name" --typescript --tailwind --eslint
+    ;;
+  *)
+    echo "Supported templates: basic, node, python, go, rust, next"
+    return 1
+    ;;
+  esac
+
+  echo "✅ Project '$project_name' created successfully"
+}
 
 # ============================================================================
 # DEVELOPMENT UTILITIES - Modern additions
@@ -172,14 +150,23 @@ alias nls='npm list --depth=0'
 # AI INTEGRATION - Ollama
 # ============================================================================
 
-# Install Python dependencies for AI integration
-alias ainstall='pip install ollama'
-
 # Ghostty AI Integration with Ollama
+
+# ai: Get a command and execute it immediately
 function ai() {
   # Get the suggested command from the Python script
   local suggestion
-  suggestion=$(python3 /Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py "$@")
+  suggestion=$("/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/.venv/bin/python" "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+
+  # Execute the suggested command
+  eval "$suggestion"
+}
+
+# aik: Get a command and ask for confirmation before executing
+function aik() {
+  # Get the suggested command from the Python script
+  local suggestion
+  suggestion=$("/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/.venv/bin/python" "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
 
   # Display the suggested command to the user
   echo "Suggested command: \`$suggestion\`"
@@ -191,11 +178,25 @@ function ai() {
   fi
 }
 
+# aie: Get a command and allow editing before executing
+function aie() {
+  # Get the suggested command from the Python script
+  local suggestion
+  suggestion=$("/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/.venv/bin/python" "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+
+  # Allow user to edit the command
+  echo "Suggested command: \`$suggestion\`"
+  vared -p "Edit command: " -c suggestion
+
+  # Execute the (potentially modified) command
+  eval "$suggestion"
+}
+
 # Python development
 alias py='python3'
 alias pip='pip3'
 alias venv='python3 -m venv'
-alias activate='source venv/bin/activate'
+alias activate='source .venv/bin/activate'
 alias pyserver='python3 -m http.server'
 
 # Docker shortcuts with better formatting
@@ -401,13 +402,13 @@ gnew() {
 }
 
 # Enhanced weather function
-weather() {
+get_weather() {
   local location=${1:-}
   curl -s "wttr.in/$location?format=3"
 }
 
 # System information display
-sysinfo() {
+get_sysinfo() {
   echo "🖥️  System Information"
   echo "===================="
   echo "OS: $(uname -s) $(uname -r)"

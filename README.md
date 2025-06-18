@@ -41,7 +41,10 @@ This isn't just another dotfiles collection. It's a **production-ready developme
 
 ### 🤖 AI-Powered Command Generation (New!)
 
-- **Natural Language to Command:** Use the `ai` command to translate plain English into executable shell commands.
+- **Natural Language to Command:** Use the `ai`, `aik`, and `aie` commands to translate plain English into executable shell commands.
+- **`ai [prompt]`**: Executes the suggested command immediately.
+- **`aik [prompt]`**: Asks for confirmation before running the command.
+- **`aie [prompt]`**: Allows you to edit the suggested command before execution.
 - **Local LLM Integration:** Powered by your own local Ollama instance for privacy and offline capability.
 - **Command Correction:** (Coming Soon) Get suggestions for correcting failed commands.
 

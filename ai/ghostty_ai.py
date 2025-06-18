@@ -10,7 +10,7 @@ def get_command_from_ollama(prompt):
     """
     try:
         response = ollama.chat(
-            model='llama3',  # Or your preferred model
+            model='qwen3:4b-q8_0',  # Or your preferred model
             messages=[
                 {
                     'role': 'system',
@@ -19,7 +19,7 @@ def get_command_from_ollama(prompt):
                         The user is running on {os.uname().sysname}.
                         The current working directory is {os.getcwd()}.
                         Based on the user's request, provide a single, executable shell command.
-                        Only output the command itself, with no additional explanation.
+                        Only output the command itself, with no additional explanation or thought process.
                     """,
                 },
                 {
@@ -28,7 +28,12 @@ def get_command_from_ollama(prompt):
                 },
             ],
         )
-        return response['message']['content'].strip()
+        # Extract the command, removing any potential `think` blocks
+        full_response = response['message']['content'].strip()
+        if "</think>" in full_response:
+            return full_response.split("</think>")[-1].strip()
+        else:
+            return full_response
     except Exception as e:
         return f"Error communicating with Ollama: {e}"
 
@@ -38,7 +43,7 @@ def get_command_correction(failed_command, error_message):
     """
     try:
         response = ollama.chat(
-            model='llama3',
+            model='qwen3:4b-q8_0',
             messages=[
                 {
                     'role': 'system',
