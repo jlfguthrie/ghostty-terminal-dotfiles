@@ -22,7 +22,7 @@ window-decoration = true
 window-theme = auto
 window-padding-x = 8
 window-padding-y = 8
-window-save-state = true
+window-save-state = always
 window-new-tab-position = end
 
 # Terminal Features - Enhanced for 2025
@@ -36,7 +36,6 @@ shell-integration = detect
 shell-integration-features = cursor,sudo,title
 
 # Performance Optimizations
-auto-update-check = false
 macos-non-native-fullscreen = false
 macos-titlebar-style = transparent
 
@@ -59,28 +58,30 @@ keybind = cmd+shift+w=close_window
 keybind = cmd+n=new_window
 keybind = cmd+shift+n=new_split:right
 keybind = cmd+shift+d=new_split:down
-keybind = cmd+left_bracket=previous_tab
-keybind = cmd+right_bracket=next_tab
+# Tab navigation (temporarily disabled - investigating key names)
+# keybind = cmd+left_bracket=previous_tab
+# keybind = cmd+right_bracket=next_tab
 
 # Tab navigation with numbers
-keybind = cmd+one=goto_tab:1
-keybind = cmd+two=goto_tab:2
-keybind = cmd+three=goto_tab:3
-keybind = cmd+four=goto_tab:4
-keybind = cmd+five=goto_tab:5
-keybind = cmd+six=goto_tab:6
-keybind = cmd+seven=goto_tab:7
-keybind = cmd+eight=goto_tab:8
-keybind = cmd+nine=goto_tab:9
+keybind = cmd+1=goto_tab:1
+keybind = cmd+2=goto_tab:2
+keybind = cmd+3=goto_tab:3
+keybind = cmd+4=goto_tab:4
+keybind = cmd+5=goto_tab:5
+keybind = cmd+6=goto_tab:6
+keybind = cmd+7=goto_tab:7
+keybind = cmd+8=goto_tab:8
+keybind = cmd+9=goto_tab:9
 
 # Shell Integration Specific Keybindings - Key feature of Ghostty
 keybind = cmd+up=jump_to_prompt:-1
 keybind = cmd+down=jump_to_prompt:1
-keybind = performable:cmd+shift+up=select_semantic:up
-keybind = performable:cmd+shift+down=select_semantic:down
+# Note: adjust_selection is experimental and may not work properly
+# keybind = performable:cmd+shift+up=adjust_selection:line_up
+# keybind = performable:cmd+shift+down=adjust_selection:line_down
 
 # Copy/Paste with VS Code compatibility
-keybind = performable:cmd+c=copy_to_clipboard
+keybind = cmd+c=copy_to_clipboard
 keybind = cmd+v=paste_from_clipboard
 keybind = cmd+shift+c=copy_to_clipboard
 keybind = cmd+shift+v=paste_from_clipboard
@@ -88,10 +89,10 @@ keybind = cmd+shift+v=paste_from_clipboard
 # Development workflow shortcuts
 keybind = cmd+shift+k=clear_screen
 keybind = cmd+shift+comma=reload_config
-keybind = cmd+shift+r=reset_terminal
+keybind = cmd+shift+r=reset
 keybind = cmd+equal=increase_font_size:1
 keybind = cmd+minus=decrease_font_size:1
-keybind = cmd+zero=reset_font_size
+keybind = cmd+0=reset_font_size
 
 # Split navigation for multi-pane development
 keybind = cmd+shift+left=goto_split:left
@@ -100,8 +101,8 @@ keybind = cmd+shift+up=goto_split:up
 keybind = cmd+shift+down=goto_split:down
 
 # Quick actions for development
-keybind = cmd+shift+f=fullscreen
-keybind = cmd+shift+i=inspector:toggle
+keybind = cmd+shift+f=toggle_fullscreen
+keybind = cmd+shift+i=inspector
 
 # Cursor and selection behavior
 cursor-style = block
