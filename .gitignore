@@ -1,0 +1,161 @@
+# Dotfiles .gitignore
+
+# ============================================================================
+# LOCAL AND SENSITIVE FILES
+# ============================================================================
+
+# Local customization files (these should remain on each machine)
+.zshrc.local
+.aliases.local
+.aliases.work
+.zshrc.work
+
+# Private configuration files
+**/private/
+**/.private
+**/secrets/
+**/.secrets
+
+# ============================================================================
+# SYSTEM FILES (macOS)
+# ============================================================================
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# macOS specific directories
+.fseventsd/
+.TemporaryItems/
+.DocumentRevisions-V100/
+
+# ============================================================================
+# BACKUP FILES
+# ============================================================================
+
+# Backup files created by our scripts
+.dotfiles-backup-*/
+.dotfiles-manual-backup-*/
+
+# Editor backup files
+*~
+*.backup
+*.bak
+*.swp
+*.swo
+*.orig
+
+# ============================================================================
+# TEMPORARY FILES
+# ============================================================================
+
+# Temporary directories
+tmp/
+temp/
+.tmp/
+
+# Log files
+*.log
+logs/
+
+# Runtime files
+*.pid
+*.lock
+
+# ============================================================================
+# DEVELOPMENT ARTIFACTS
+# ============================================================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# Go
+# (Go artifacts are typically in separate repositories)
+
+# Rust
+target/
+Cargo.lock
+
+# ============================================================================
+# EDITOR AND IDE FILES
+# ============================================================================
+
+# VS Code local settings (workspace-specific)
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/c_cpp_properties.json
+.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# Vim
+.vim/
+.vimrc.local
+
+# Emacs
+.emacs.d/
+*~
+
+# ============================================================================
+# APPLICATION CACHES
+# ============================================================================
+
+# Shell history (these are machine-specific)
+.zsh_history
+.bash_history
+
+# Command history for various tools
+.docker/
+.npm/
+.yarn/
+.cargo/
+.rustup/
+
+# ============================================================================
+# TESTING AND CI
+# ============================================================================
+
+# Test output
+test-results/
+coverage/
+.nyc_output/
+
+# CI artifacts (these are generated during CI runs)
+.github/test-output/
+
+# ============================================================================
+# PACKAGE MANAGER FILES (if present)
+# ============================================================================
+
+# These might be present but shouldn't be committed
+package-lock.json
+yarn.lock
+Pipfile.lock
+
+# ============================================================================
+# CUSTOM ADDITIONS
+# ============================================================================
+
+# Any custom files that should not be tracked
+custom/
+local/

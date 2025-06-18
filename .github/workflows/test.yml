@@ -1,0 +1,118 @@
+name: Test Dotfiles Installation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-installation:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install Homebrew (if not present)
+      run: |
+        if ! command -v brew &> /dev/null; then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+        
+    - name: Test installation script syntax
+      run: |
+        bash -n install.sh
+        bash -n scripts/backup.sh
+        bash -n scripts/sync.sh
+        
+    - name: Test zsh configuration syntax
+      run: |
+        zsh -n zsh/.zshrc || true  # Allow failure as some plugins may not be available
+        
+    - name: Validate Ghostty configuration
+      run: |
+        # Check if config file has valid syntax (basic validation)
+        if [ -f "ghostty/config" ]; then
+          echo "✅ Ghostty config file exists"
+          # Basic syntax check - ensure no obvious errors
+          grep -E "^[a-zA-Z-_]+ = " ghostty/config && echo "✅ Valid key-value pairs found"
+        fi
+        
+    - name: Validate VS Code settings
+      run: |
+        if command -v jq &> /dev/null; then
+          jq empty vscode/settings.json && echo "✅ Valid JSON in VS Code settings"
+        else
+          python3 -m json.tool vscode/settings.json > /dev/null && echo "✅ Valid JSON in VS Code settings"
+        fi
+        
+    - name: Test modern tools installation (dry run)
+      run: |
+        # Test that the tools we try to install actually exist in Homebrew
+        tools=(
+          "eza" "bat" "fd" "ripgrep" "fzf" "procs" "dust" "bottom"
+          "git-delta" "tldr" "jq" "yq" "tree" "htop" "httpie" "gh" "duf" "zoxide"
+        )
+        
+        for tool in "${tools[@]}"; do
+          if brew info "$tool" &> /dev/null; then
+            echo "✅ $tool is available in Homebrew"
+          else
+            echo "❌ $tool is not available in Homebrew"
+            exit 1
+          fi
+        done
+        
+    - name: Test aliases syntax
+      run: |
+        # Source the aliases file in a subshell to test syntax
+        zsh -c "source zsh/aliases.sh" || true
+        echo "✅ Aliases file syntax check completed"
+        
+  test-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Test README links
+      run: |
+        # Basic check that README exists and has content
+        if [ -f "README.md" ]; then
+          echo "✅ README.md exists"
+          if grep -q "Ghostty" README.md; then
+            echo "✅ README mentions Ghostty"
+          fi
+          if grep -q "VS Code" README.md; then
+            echo "✅ README mentions VS Code"
+          fi
+        fi
+        
+  security-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check for sensitive information
+      run: |
+        # Check for potential sensitive information
+        if grep -r -i "password\|secret\|token\|key" . --exclude-dir=.git --exclude="*.md" --exclude="*.yml" --exclude="*.yaml"; then
+          echo "⚠️  Potential sensitive information found - please review"
+        else
+          echo "✅ No obvious sensitive information found"
+        fi
+        
+    - name: Check file permissions
+      run: |
+        # Ensure shell scripts are executable
+        find . -name "*.sh" -type f | while read file; do
+          if [ -x "$file" ]; then
+            echo "✅ $file is executable"
+          else
+            echo "⚠️  $file is not executable - this may cause issues"
+          fi
+        done

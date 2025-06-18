@@ -1,0 +1,313 @@
+{
+  "folders": [
+    {
+      "name": "🚀 Ghostty Terminal Dotfiles",
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Workspace-specific settings for Ghostty Dotfiles development
+    "workbench.colorTheme": "GitHub Dark",
+    "workbench.startupEditor": "readme",
+
+    // File associations for dotfiles
+    "files.associations": {
+      "*.zsh": "shellscript",
+      "*.sh": "shellscript",
+      "config": "ini",
+      ".zshrc": "shellscript",
+      ".bashrc": "shellscript",
+      ".profile": "shellscript",
+      "aliases": "shellscript",
+      "aliases.sh": "shellscript",
+      "install": "shellscript",
+      "HANDOFF": "markdown"
+    },
+
+    // Enhanced file watching for dotfiles
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/.hg/store/**": true,
+      "**/.dotfiles-backup-*/**": true,
+      "**/tmp/**": true,
+      "**/temp/**": true
+    },
+
+    // Terminal integration optimized for Ghostty
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.profiles.osx": {
+      "zsh (Ghostty optimized)": {
+        "path": "/bin/zsh",
+        "args": ["-l"],
+        "env": {
+          "TERM": "ghostty",
+          "COLORTERM": "truecolor"
+        }
+      }
+    },
+
+    // Editor settings for shell scripts and configs
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.rulers": [80, 120],
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 120,
+    "editor.fontFamily": "JetBrains Mono Nerd Font",
+    "editor.fontSize": 14,
+    "editor.fontLigatures": true,
+
+    // Language-specific settings
+    "[shellscript]": {
+      "editor.formatOnSave": true,
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.wordWrap": "on",
+      "editor.quickSuggestions": {
+        "comments": "off",
+        "strings": "off",
+        "other": "off"
+      }
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+
+    // Git integration
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "git.showProgress": true,
+    "git.decorations.enabled": true,
+
+    // Search settings
+    "search.exclude": {
+      "**/.git": true,
+      "**/.dotfiles-backup-*": true,
+      "**/node_modules": true,
+      "**/tmp": true,
+      "**/temp": true
+    },
+
+    // File explorer settings with nesting
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "README.md": "CHANGELOG.md, CONTRIBUTING.md, LICENSE, .gitignore, HANDOFF.md",
+      "install.sh": "scripts/*.sh",
+      ".zshrc": ".zshrc.*, aliases.sh, .p10k.zsh",
+      "ghostty-dotfiles.code-workspace": "dotfiles-*.code-workspace"
+    },
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+
+    // GitHub Copilot settings (2025 enhanced)
+    "github.copilot.enable": {
+      "*": true,
+      "yaml": true,
+      "plaintext": true,
+      "markdown": true,
+      "shellscript": true,
+      "ini": true
+    },
+    "github.copilot.advanced": {},
+
+    // Code formatting and linting
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+
+    // Spell checking for documentation
+    "cSpell.words": [
+      "Ghostty",
+      "dotfiles",
+      "zshrc",
+      "bashrc",
+      "Powerlevel",
+      "nerdfonts",
+      "tmux",
+      "nvim",
+      "homebrew",
+      "macos",
+      "copilot",
+      "intellicommerce",
+      "xstra",
+      "astrata",
+      "jlfguthrie",
+      "autosuggestions",
+      "keybind",
+      "keybinds"
+    ],
+
+    // Performance optimizations
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "🚀 Install Ghostty Dotfiles",
+        "type": "shell",
+        "command": "./install.sh",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": false
+        },
+        "problemMatcher": [],
+        "detail": "Install the complete Ghostty dotfiles configuration"
+      },
+      {
+        "label": "🧪 Test Installation",
+        "type": "shell",
+        "command": "zsh",
+        "args": [
+          "-c",
+          "source ~/.zshrc && echo '✅ Configuration test successful'"
+        ],
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": [],
+        "detail": "Test that the zsh configuration loads correctly"
+      },
+      {
+        "label": "💾 Backup Configurations",
+        "type": "shell",
+        "command": "./scripts/backup.sh",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": [],
+        "detail": "Create a backup of current configurations"
+      },
+      {
+        "label": "🔄 Sync Configurations",
+        "type": "shell",
+        "command": "./scripts/sync.sh",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": [],
+        "detail": "Sync local changes back to repository"
+      },
+      {
+        "label": "✅ Validate All Configs",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+          "-c",
+          "echo '🔍 Validating configurations...' && bash -n install.sh && bash -n scripts/*.sh && echo '✅ Shell scripts OK' && python3 -m json.tool vscode/settings.json > /dev/null && echo '✅ VS Code settings OK' && echo '🎉 All validations passed!'"
+        ],
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": [],
+        "detail": "Validate syntax of all configuration files"
+      },
+      {
+        "label": "📋 Check Latest Versions",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+          "-c",
+          "echo '📋 Checking tool versions...' && echo 'Ghostty:' && (ghostty --version 2>/dev/null || echo 'Not installed') && echo 'VS Code:' && (code --version 2>/dev/null || echo 'Not installed') && echo 'Node.js:' && (node --version 2>/dev/null || echo 'Not installed') && echo 'Homebrew:' && (brew --version 2>/dev/null || echo 'Not installed')"
+        ],
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": [],
+        "detail": "Check versions of all installed tools"
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": []
+  },
+  "extensions": {
+    "recommendations": [
+      // Shell and terminal
+      "timonwong.shellcheck",
+      "foxundermoon.shell-format",
+      "mads-hartmann.bash-ide-vscode",
+
+      // Language support
+      "ms-vscode.vscode-json",
+      "redhat.vscode-yaml",
+      "ms-vscode.vscode-typescript-next",
+
+      // Documentation
+      "davidanson.vscode-markdownlint",
+      "yzhang.markdown-all-in-one",
+      "bierner.markdown-emoji",
+
+      // Git and GitHub
+      "eamodio.gitlens",
+      "github.copilot",
+      "github.copilot-chat",
+      "github.vscode-pull-request-github",
+
+      // Themes and appearance
+      "ms-vscode.theme-tomorrowkit",
+      "pkief.material-icon-theme",
+
+      // Productivity
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss",
+      "ms-python.python",
+      "golang.go",
+      "rust-lang.rust-analyzer",
+
+      // Terminal enhancements
+      "tyriar.terminal-tabs"
+    ],
+    "unwantedRecommendations": ["ms-vscode.vscode-json-languageservice"]
+  }
+}

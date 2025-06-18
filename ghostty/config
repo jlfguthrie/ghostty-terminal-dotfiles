@@ -1,0 +1,111 @@
+# Ghostty Configuration - June 2025
+# Optimized for development work with VS Code integration
+# Leverages Ghostty's native features and built-in shell integration
+
+# Font Configuration - Using Ghostty's embedded JetBrains Mono
+font-family = "JetBrains Mono Nerd Font"
+font-size = 14
+font-style = normal
+font-style-bold = bold
+font-style-italic = italic
+font-style-bold-italic = bold-italic
+font-feature = "liga=1,calt=1,ss01=1,ss02=1,ss19=1"
+
+# Theme and Colors - Using Ghostty's built-in theme system
+theme = "Tomorrow Night"
+theme-light = "Tomorrow"
+background-opacity = 0.95
+background-blur-radius = 20
+unfocused-split-opacity = 0.7
+
+# Window Configuration
+window-decoration = true
+window-theme = auto
+window-padding-x = 8
+window-padding-y = 8
+window-save-state = true
+window-new-tab-position = after
+
+# Terminal Features - Enhanced for 2025
+scrollback-limit = 100000
+confirm-close-surface = false
+quit-after-last-window-closed = false
+
+# Shell Integration - Enhanced for development workflows
+# Use automatic detection but specify features we want
+shell-integration = detect
+shell-integration-features = cursor,sudo,title,jump,click
+
+# Performance Optimizations
+auto-update-check = false
+gtk-single-instance = false
+macos-non-native-fullscreen = false
+macos-titlebar-style = transparent
+
+# Working Directory and Session Management
+working-directory = home
+
+# Advanced Terminal Features
+link-url = true
+clipboard-trim-trailing-spaces = true
+copy-on-select = false
+click-repeat-interval = 300
+focus-follows-mouse = false
+mouse-hide-while-typing = true
+mouse-shift-capture = false
+selection-foreground = invert
+
+# Enhanced Keybindings - Optimized for 2025 development workflow
+keybind = cmd+t=new_tab
+keybind = cmd+w=close_surface
+keybind = cmd+shift+w=close_window
+keybind = cmd+n=new_window
+keybind = cmd+shift+n=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+left_bracket=previous_tab
+keybind = cmd+right_bracket=next_tab
+
+# Tab navigation with numbers
+keybind = cmd+1=goto_tab:1
+keybind = cmd+2=goto_tab:2
+keybind = cmd+3=goto_tab:3
+keybind = cmd+4=goto_tab:4
+keybind = cmd+5=goto_tab:5
+keybind = cmd+6=goto_tab:6
+keybind = cmd+7=goto_tab:7
+keybind = cmd+8=goto_tab:8
+keybind = cmd+9=goto_tab:9
+
+# Shell Integration Specific Keybindings - Key feature of Ghostty
+keybind = cmd+up=jump_to_prompt:-1
+keybind = cmd+down=jump_to_prompt:1
+keybind = performable:cmd+shift+up=select_semantic:up
+keybind = performable:cmd+shift+down=select_semantic:down
+
+# Copy/Paste with VS Code compatibility
+keybind = performable:cmd+c=copy_to_clipboard
+keybind = cmd+v=paste_from_clipboard
+keybind = cmd+shift+c=copy_to_clipboard
+keybind = cmd+shift+v=paste_from_clipboard
+
+# Development workflow shortcuts
+keybind = cmd+shift+k=clear_screen
+keybind = cmd+shift+comma=reload_config
+keybind = cmd+shift+r=reset_terminal
+keybind = cmd+equal=increase_font_size:1
+keybind = cmd+minus=decrease_font_size:1
+keybind = cmd+0=reset_font_size
+
+# Split navigation for multi-pane development
+keybind = cmd+shift+left=goto_split:left
+keybind = cmd+shift+right=goto_split:right
+keybind = cmd+shift+up=goto_split:up
+keybind = cmd+shift+down=goto_split:down
+
+# Quick actions for development
+keybind = cmd+shift+f=fullscreen
+keybind = cmd+shift+i=inspector:toggle
+
+# Cursor and selection behavior
+cursor-style = block
+cursor-style-blink = false

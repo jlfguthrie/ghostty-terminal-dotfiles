@@ -1,0 +1,100 @@
+{
+  "terminal.external.osxExec": "Ghostty.app",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.env.osx": {
+    "TERM": "ghostty",
+    "COLORTERM": "truecolor"
+  },
+  "terminal.integrated.fontFamily": "JetBrains Mono Nerd Font",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.2,
+  "terminal.integrated.fontWeight": "normal",
+  "terminal.integrated.fontWeightBold": "bold",
+  "terminal.integrated.cursorBlinking": false,
+  "terminal.integrated.cursorStyle": "block",
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.macOptionIsMeta": true,
+  "terminal.integrated.scrollback": 100000,
+  "terminal.integrated.fastScrollSensitivity": 5,
+  "terminal.integrated.mouseWheelScrollSensitivity": 3,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "terminal.integrated.confirmOnKill": "hasChildProcesses",
+  "terminal.integrated.confirmOnExit": "hasChildProcesses",
+  "terminal.integrated.enableBell": false,
+  "workbench.colorTheme": "Tomorrow Night Blue",
+  "workbench.preferredDarkColorTheme": "Tomorrow Night Blue",
+  "workbench.preferredLightColorTheme": "Tomorrow",
+  "window.autoDetectColorScheme": true,
+  "editor.fontFamily": "JetBrains Mono Nerd Font, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.4,
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.size": "fit",
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.decorations.enabled": true,
+  "git.openRepositoryInParentFolders": "always",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.openEditors.visible": 0,
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+  "search.smartCase": true,
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "debug.console.fontSize": 14,
+  "debug.console.fontFamily": "JetBrains Mono Nerd Font",
+  "terminal.integrated.profiles.osx": {
+    "zsh (Ghostty optimized)": {
+      "path": "/bin/zsh",
+      "args": ["-l"],
+      "env": {
+        "TERM": "ghostty",
+        "COLORTERM": "truecolor"
+      }
+    },
+    "bash": {
+      "path": "/bin/bash",
+      "args": ["-l"]
+    }
+  },
+  "keyboard.dispatch": "keyCode",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/.venv/**": true,
+    "**/venv/**": true
+  },
+  "python.defaultInterpreterPath": "python3",
+  "python.terminal.activateEnvironment": true,
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": true,
+    "markdown": true,
+    "shellscript": true
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.advanced": {},
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.editor.enablePreview": false,
+  "workbench.tree.indent": 12,
+  "breadcrumbs.enabled": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.rulers": [80, 120],
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 120
+}
