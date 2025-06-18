@@ -1,19 +1,17 @@
 # Ghostty Configuration - June 2025
-# Optimized for development work with VS Code integration
+# Optimized for development and VS Code integration
 # Leverages Ghostty's native features and built-in shell integration
 
 # Font Configuration - Using Ghostty's embedded JetBrains Mono
 font-family = "JetBrains Mono Nerd Font"
 font-size = 14
-font-style = normal
-font-style-bold = bold
-font-style-italic = italic
-font-style-bold-italic = bold-italic
+# font-style configurations removed - they should either be specific style names or false to disable
+# The values "normal", "bold", "italic", "bold-italic" are not valid according to documentation
 font-feature = "liga=1,calt=1,ss01=1,ss02=1,ss19=1"
 
 # Theme and Colors - Using Ghostty's built-in theme system
-theme = "Tomorrow Night"
-background-opacity = 0.95
+theme = "Catppuccin-Macchiato"
+background-opacity = 0.9
 background-blur = 20
 unfocused-split-opacity = 0.7
 
@@ -37,7 +35,19 @@ shell-integration-features = cursor,sudo,title
 
 # Performance Optimizations
 macos-non-native-fullscreen = false
+
+# macOS Specific Settings
 macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = visible
+macos-option-as-alt = true
+macos-window-shadow = true
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+macos-icon = official
+# To use a custom icon, set macos-icon = "custom-style" and uncomment the following:
+# macos-icon-frame = "aluminum"
+# macos-icon-ghost-color = "#FFFFFF"
+# macos-icon-screen-color = "#000000,#FFFFFF"
 
 # Working Directory and Session Management
 working-directory = home
@@ -51,58 +61,56 @@ focus-follows-mouse = false
 mouse-hide-while-typing = true
 mouse-shift-capture = false
 
-# Enhanced Keybindings - Optimized for 2025 development workflow
-keybind = cmd+t=new_tab
-keybind = cmd+w=close_surface
-keybind = cmd+shift+w=close_window
-keybind = cmd+n=new_window
-keybind = cmd+shift+n=new_split:right
-keybind = cmd+shift+d=new_split:down
-# Tab navigation (temporarily disabled - investigating key names)
-# keybind = cmd+left_bracket=previous_tab
-# keybind = cmd+right_bracket=next_tab
+# Enhanced Keybindings - Optimized for 2025 development workflow (TESTING ONE BY ONE)
+# BASIC WINDOW MANAGEMENT - TESTING
+keybind = super+t=new_tab
+keybind = super+w=close_surface
+keybind = super+shift+w=close_window
+keybind = super+n=new_window
+keybind = super+shift+n=new_split:right
+keybind = super+shift+d=new_split:down
+# TAB NAVIGATION WITH BRACKET KEYS - FIXED ✅
+keybind = super+shift+[=previous_tab
+keybind = super+shift+]=next_tab
 
-# Tab navigation with numbers
-keybind = cmd+1=goto_tab:1
-keybind = cmd+2=goto_tab:2
-keybind = cmd+3=goto_tab:3
-keybind = cmd+4=goto_tab:4
-keybind = cmd+5=goto_tab:5
-keybind = cmd+6=goto_tab:6
-keybind = cmd+7=goto_tab:7
-keybind = cmd+8=goto_tab:8
-keybind = cmd+9=goto_tab:9
+# TAB NAVIGATION WITH NUMBERS - FIXED ✅
+keybind = super+1=goto_tab:1
+keybind = super+2=goto_tab:2
+keybind = super+3=goto_tab:3
+keybind = super+4=goto_tab:4
+keybind = super+5=goto_tab:5
+keybind = super+6=goto_tab:6
+keybind = super+7=goto_tab:7
+keybind = super+8=goto_tab:8
+keybind = super+9=goto_tab:9
 
-# Shell Integration Specific Keybindings - Key feature of Ghostty
-keybind = cmd+up=jump_to_prompt:-1
-keybind = cmd+down=jump_to_prompt:1
-# Note: adjust_selection is experimental and may not work properly
-# keybind = performable:cmd+shift+up=adjust_selection:line_up
-# keybind = performable:cmd+shift+down=adjust_selection:line_down
+# SHELL INTEGRATION NAVIGATION - FIXED ✅
+keybind = super+up=jump_to_prompt:-1
+keybind = super+down=jump_to_prompt:1
+# EXPERIMENTAL SELECTION ADJUSTMENT - BROKEN (invalid parameters)
+# keybind = performable:super+shift+up=adjust_selection:line_up
+# keybind = performable:super+shift+down=adjust_selection:line_down
 
-# Copy/Paste with VS Code compatibility
-keybind = cmd+c=copy_to_clipboard
-keybind = cmd+v=paste_from_clipboard
-keybind = cmd+shift+c=copy_to_clipboard
-keybind = cmd+shift+v=paste_from_clipboard
+# Copy/Paste - FIXED ✅
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
 
-# Development workflow shortcuts
-keybind = cmd+shift+k=clear_screen
-keybind = cmd+shift+comma=reload_config
-keybind = cmd+shift+r=reset
-keybind = cmd+equal=increase_font_size:1
-keybind = cmd+minus=decrease_font_size:1
-keybind = cmd+0=reset_font_size
+# Development workflow shortcuts - FIXED ✅
+keybind = super+shift+k=clear_screen
+keybind = super+shift+comma=reload_config
+keybind = super+shift+r=reset
+keybind = super+equal=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
+keybind = super+0=reset_font_size
 
-# Split navigation for multi-pane development
-keybind = cmd+shift+left=goto_split:left
-keybind = cmd+shift+right=goto_split:right
-keybind = cmd+shift+up=goto_split:up
-keybind = cmd+shift+down=goto_split:down
+# Split navigation for multi-pane development - FIXED ✅
+keybind = super+shift+left=goto_split:left
+keybind = super+shift+right=goto_split:right
+keybind = super+shift+up=goto_split:up
+keybind = super+shift+down=goto_split:down
 
 # Quick actions for development
-keybind = cmd+shift+f=toggle_fullscreen
-keybind = cmd+shift+i=inspector
+keybind = super+shift+f=toggle_fullscreen
 
 # Cursor and selection behavior
 cursor-style = block

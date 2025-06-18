@@ -232,11 +232,7 @@
       {
         "label": "✅ Validate All Configs",
         "type": "shell",
-        "command": "bash",
-        "args": [
-          "-c",
-          "echo '🔍 Validating configurations...' && bash -n install.sh && bash -n scripts/*.sh && echo '✅ Shell scripts OK' && python3 -m json.tool vscode/settings.json > /dev/null && echo '✅ VS Code settings OK' && echo '🎉 All validations passed!'"
-        ],
+        "command": "./scripts/validate-all.sh",
         "group": "test",
         "presentation": {
           "echo": true,

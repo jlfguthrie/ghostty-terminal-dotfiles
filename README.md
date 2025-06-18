@@ -18,12 +18,12 @@
   <img src="https://img.shields.io/badge/Terminal-Ghostty-00FF41?style=for-the-badge&logo=terminal" alt="Ghostty Terminal">
   <img src="https://img.shields.io/badge/Shell-Zsh-89E051?style=for-the-badge&logo=zsh" alt="Zsh Shell">
   <img src="https://img.shields.io/badge/Editor-VS%20Code-007ACC?style=for-the-badge&logo=visual-studio-code" alt="VS Code">
-  <img src="https://img.shields.io/badge/AI-GitHub%20Copilot-000000?style=for-the-badge&logo=github" alt="GitHub Copilot">
+  <img src="https://img.shields.io/badge/AI-Ollama%20%26%20Copilot-000000?style=for-the-badge&logo=github" alt="AI Integration">
   <img src="https://img.shields.io/badge/Platform-macOS-000000?style=for-the-badge&logo=apple" alt="macOS">
 </p>
 
-> **Crafted by [John Guthrie](https://github.com/jlfguthrie)** - AI Builder & Entrepreneur from South Africa 🇿🇦  
-> *Powered by [Xstra AI](https://xstra.ai) ✨ | Enabled by Astrata Cloud 🌤️ | Building [IntelliCommerce](https://intellicommerce.co.za) 🌀*
+> **Crafted by [John Guthrie](https://github.com/jlfguthrie)** - AI Builder & Entrepreneur from South Africa 🇿🇦
+> _Powered by [Xstra AI](https://xstra.ai) ✨ | Enabled by Astrata Cloud 🌤️ | Building [IntelliCommerce](https://intellicommerce.co.za) 🌀_
 
 The definitive **Ghostty terminal dotfiles** collection for modern developers in 2025. This isn't just another dotfiles repository—it's a **production-ready development environment** optimized for **AI-assisted coding**, **performance**, and **developer productivity**.
 
@@ -32,14 +32,21 @@ The definitive **Ghostty terminal dotfiles** collection for modern developers in
 This isn't just another dotfiles collection. It's a **production-ready development environment** that leverages the latest 2025 terminal technologies:
 
 - 🔥 **Ghostty Terminal Integration** - Harnesses native GPU acceleration and shell integration
-- 🤖 **GitHub Copilot Optimized** - Perfect for AI-assisted development workflows  
+- 🤖 **AI-Powered Workflow** - Integrated with Ollama for local AI and GitHub Copilot for cloud AI.
 - ⚡ **Performance First** - Lazy loading, instant prompts, and optimized startup times
 - 🎨 **Beautiful & Functional** - Modern CLI tools with rich syntax highlighting and icons
 - 🛠️ **Developer-Focused** - Built by developers, for developers
 
 ## 🚀 Features
 
+### 🤖 AI-Powered Command Generation (New!)
+
+- **Natural Language to Command:** Use the `ai` command to translate plain English into executable shell commands.
+- **Local LLM Integration:** Powered by your own local Ollama instance for privacy and offline capability.
+- **Command Correction:** (Coming Soon) Get suggestions for correcting failed commands.
+
 ### 🔥 Ghostty Terminal Integration (June 2025)
+
 - **🤖 Native Shell Integration** with automatic injection for zsh, bash, fish
 - **⚡ Advanced Prompt Navigation** with `cmd+up/down` for jumping between prompts
 - **🎯 Smart Cursor Behavior** - bar at prompt, block in applications
@@ -51,6 +58,7 @@ This isn't just another dotfiles collection. It's a **production-ready developme
 - **💻 VS Code Integration** with optimized keybindings and settings
 
 ### 🐚 Enhanced Zsh Configuration (2025 Edition)
+
 - **⚡ Powerlevel10k** theme with instant prompt for ultra-fast startup
 - **🔌 Modern plugins** carefully selected to complement Ghostty features
 - **💼 Development-focused aliases** and functions for 2025 workflows
@@ -61,6 +69,7 @@ This isn't just another dotfiles collection. It's a **production-ready developme
 - **🚀 Performance optimized** to work with Ghostty's native capabilities
 
 ### 💻 VS Code Integration (Enhanced)
+
 - **⚙️ Complete settings configuration** optimized for Ghostty
 - **🎨 Font and theme consistency** between terminal and editor
 - **🔌 Recommended extensions** for modern development
@@ -69,6 +78,7 @@ This isn't just another dotfiles collection. It's a **production-ready developme
 - **🔀 Intelligent settings merging** preserves existing configurations
 
 ### 🛠️ Modern Development Tools (2025)
+
 - **📦 Package managers**: npm, yarn, bun
 - **🔄 Runtime managers**: nvm (lazy-loaded), pyenv, rustup
 - **🌐 Language support**: Node.js, Python, Go, Rust, Deno
@@ -80,13 +90,16 @@ This isn't just another dotfiles collection. It's a **production-ready developme
 
 <div align="center">
 
-### 🌟 Ghostty Terminal with Enhanced Features
-![Ghostty Terminal](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Ghostty+Terminal+with+Enhanced+Shell+Integration)
+### 🌟 Ghostty Terminal with AI Command Generation
+
+![Ghostty Terminal with AI](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=ai+find+all+files+modified+in+the+last+24+hours)
 
 ### 🎨 VS Code Integration
+
 ![VS Code Integration](https://via.placeholder.com/800x400/007ACC/ffffff?text=VS+Code+with+Ghostty+Terminal+Integration)
 
 ### 📊 Modern Command Tools
+
 ![Modern Tools](https://via.placeholder.com/800x400/0f172a/ffffff?text=Modern+CLI+Tools+%28eza%2C+bat%2C+fzf%29)
 
 </div>
@@ -94,25 +107,25 @@ This isn't just another dotfiles collection. It's a **production-ready developme
 ## 📁 Repository Structure
 
 ```
-modern-terminal-dotfiles/
+ghostty-terminal-dotfiles/
 ├── 📄 README.md                    # This comprehensive documentation
 ├── 📄 CHANGELOG.md                 # Version history and migration notes
 ├── 🔧 install.sh                   # Enhanced installation script
-├── 📁 .github/
-│   ├── 🔄 workflows/test.yml       # Automated testing and CI
-│   ├── 📋 CONTRIBUTING.md          # Contribution guidelines  
-│   └── 🔒 SECURITY.md              # Security documentation
-├── 📁 ghostty/
-│   └── ⚙️ config                   # Enhanced Ghostty configuration
-├── 📁 vscode/
-│   └── ⚙️ settings.json            # Complete VS Code settings
-├── 📁 zsh/
-│   ├── 🐚 .zshrc                   # Enhanced zsh configuration
-│   └── 🔧 aliases.sh               # 200+ modern aliases & functions
-├── 📁 scripts/
-│   ├── 💾 backup.sh                # Safe configuration backup
-│   └── 🔄 sync.sh                  # Repository synchronization
-└── 🗂️ dotfiles-ghostty.code-workspace # VS Code workspace with tasks
+├── 🤖 ai/
+│   └── ghostty_ai.py             # Python script for Ollama integration
+├── 👻 ghostty/
+│   └── config                    # Ghostty terminal configuration
+├── 📜 scripts/
+│   ├── backup.sh                 # Backup script for existing configs
+│   ├── check-versions.sh         # Script to check tool versions
+│   ├── sync.sh                   # Script to sync local changes
+│   ├── update-tools.sh           # Script to update tools
+│   └── validate-all.sh           # Validation script for all configs
+├── 💻 vscode/
+│   └── settings.json             # VS Code settings
+└── 🐚 zsh/
+    ├── .zshrc                    # Main Zsh configuration file
+    └── aliases.sh                # Zsh aliases
 ```
 
 ## 🛠 Installation
@@ -125,6 +138,7 @@ Before installing, ensure you have:
 2. **Ghostty Terminal** - [Download from ghostty.org](https://ghostty.org/download)
 3. **VS Code** - [Download from code.visualstudio.com](https://code.visualstudio.com)
 4. **Homebrew** (recommended) - Install with:
+
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
@@ -145,6 +159,7 @@ Before installing, ensure you have:
 2. **👻 Ghostty Terminal** - [Download from ghostty.org](https://ghostty.org/download)
 3. **💻 VS Code** - [Download from code.visualstudio.com](https://code.visualstudio.com)
 4. **🍺 Homebrew** (recommended) - Install with:
+
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
@@ -152,22 +167,26 @@ Before installing, ensure you have:
 ### Manual Installation
 
 1. **📥 Clone the repository**:
+
    ```bash
    git clone https://github.com/jlfguthrie/ghostty-terminal-dotfiles.git
    cd ghostty-dotfiles
    ```
 
 2. **🚀 Run the installation script**:
+
    ```bash
    ./install.sh
    ```
 
 3. **🔄 Restart Ghostty** or reload configuration:
+
    ```bash
    source ~/.zshrc
    ```
 
 4. **🎨 Configure Powerlevel10k** (first time):
+
    ```bash
    p10k configure
    ```
@@ -175,8 +194,9 @@ Before installing, ensure you have:
 ### What Gets Installed
 
 The installation script will:
+
 - ✅ Install Oh My Zsh with Powerlevel10k theme
-- ✅ Install 25+ modern development tools via Homebrew  
+- ✅ Install 25+ modern development tools via Homebrew
 - ✅ Configure Ghostty for optimal development experience
 - ✅ Set up VS Code integration with recommended extensions
 - ✅ Create timestamped backups of existing configurations
@@ -185,15 +205,18 @@ The installation script will:
 ### Post-Installation Steps
 
 1. **Set Ghostty as Default Terminal**:
+
    - Go to System Settings → General → Default web browser
    - Set terminal to Ghostty
 
 2. **Install VS Code Command Line Tools**:
+
    - Open VS Code
    - Press `Cmd+Shift+P`
    - Type "Install 'code' command in PATH"
 
 3. **Configure Git** (if not already done):
+
    ```bash
    git config --global user.name "Your Name"
    git config --global user.email "your.email@example.com"
@@ -207,6 +230,7 @@ The installation script will:
 ## 🎯 Key Features to Explore
 
 ### Ghostty-Specific Features
+
 - **Prompt Navigation**: `cmd+up/down` to jump between command prompts
 - **Semantic Selection**: `cmd+triple-click` to select command output
 - **Cursor Positioning**: `alt+click` to move cursor to click location
@@ -214,6 +238,7 @@ The installation script will:
 - **Theme Switching**: Automatic light/dark mode following system
 
 ### Enhanced Git Workflow
+
 ```bash
 # Quick commits
 gquick "Your commit message"
@@ -229,6 +254,7 @@ gs  # Short, colorized status with branch info
 ```
 
 ### Modern Command Replacements
+
 ```bash
 # Enhanced file listing
 ls    # eza with icons and git status
@@ -247,6 +273,7 @@ du     # dust with visual directory sizes
 ```
 
 ### Development Productivity
+
 ```bash
 # Quick project initialization
 initproj myproject node    # Creates Node.js project
@@ -271,6 +298,7 @@ kshell     # Interactive pod shell access
 ## 🔧 Customization
 
 ### Local Overrides
+
 Create these files for local customizations that won't be committed:
 
 - `~/.zshrc.local` - Local zsh configurations
@@ -278,13 +306,17 @@ Create these files for local customizations that won't be committed:
 - `~/.zshrc.work` - Work-specific configurations
 
 ### VS Code Settings
+
 The installer preserves your existing VS Code settings while adding Ghostty optimizations. You can manually edit:
+
 ```bash
 code "$HOME/Library/Application Support/Code/User/settings.json"
 ```
 
 ### Ghostty Configuration
+
 Edit Ghostty config directly:
+
 ```bash
 ghostty-config  # Opens config in VS Code
 ```
@@ -294,6 +326,7 @@ After making changes, reload with `cmd+shift+,` in Ghostty.
 ## 🚀 Advanced Usage
 
 ### FZF Enhanced Navigation
+
 ```bash
 fcd        # Fuzzy find and change directory with preview
 fgco       # Fuzzy find and checkout git branch
@@ -302,6 +335,7 @@ fdocker    # Interactive Docker container management
 ```
 
 ### Quick Utilities
+
 ```bash
 serve 8080          # Start HTTP server on port 8080
 json '{"key":"val"}'# Format and validate JSON
@@ -316,19 +350,23 @@ timer 300          # Set a 5-minute timer with notification
 ### Common Issues
 
 **Shell integration not working**:
+
 ```bash
 echo $GHOSTTY_RESOURCES_DIR  # Should show Ghostty resources path
 ```
 
 **Slow shell startup**:
+
 - Check that NVM is lazy-loaded (it should be with this config)
 - Run `time zsh -i -c exit` to measure startup time
 
 **VS Code terminal not using Ghostty**:
+
 - Check VS Code settings: `"terminal.external.osxExec": "Ghostty.app"`
 - Restart VS Code after installation
 
 **Missing modern tools**:
+
 ```bash
 brew install eza bat fd ripgrep fzf  # Install missing tools manually
 ```
@@ -343,6 +381,7 @@ brew install eza bat fd ripgrep fzf  # Install missing tools manually
 ## 🔄 Staying Updated
 
 ### Update the Configuration
+
 ```bash
 cd path/to/ghostty-terminal-dotfiles
 git pull origin main
@@ -350,30 +389,35 @@ git pull origin main
 ```
 
 ### Sync Your Changes
+
 ```bash
 ./scripts/sync.sh  # Sync local changes back to repository
 ```
 
 ### Backup Before Updates
+
 ```bash
 ./scripts/backup.sh  # Create manual backup before major changes
 ```
 
 1. **Install Ghostty Terminal** (June 2025 version)
+
    ```bash
    # Download from official website (recommended)
    # Visit: https://ghostty.org/download
-   
+
    # Or build from source for latest features
    # Visit: https://ghostty.org/docs/install/build
    ```
 
 2. **Install Homebrew** (for modern development tools)
+
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 
 3. **Install required fonts**
+
    ```bash
    brew tap homebrew/cask-fonts
    brew install --cask font-jetbrains-mono-nerd-font
@@ -382,18 +426,21 @@ git pull origin main
 ### Quick Setup
 
 1. **Clone this repository**
+
    ```bash
    git clone https://github.com/jlfguthrie/ghostty-terminal-dotfiles.git ~/dev/scripts/ghostty-dotfiles
    cd ~/dev/scripts/ghostty-terminal-dotfiles
    ```
 
 2. **Run the enhanced installation script**
+
    ```bash
    chmod +x install.sh
    ./install.sh
    ```
-   
+
    The installer will:
+
    - Install Oh My Zsh and Powerlevel10k
    - Install modern development tools (eza, bat, fd, ripgrep, etc.)
    - Configure Ghostty with optimized settings
@@ -401,12 +448,14 @@ git pull origin main
    - Create comprehensive backups
 
 3. **Restart Ghostty** and enjoy the enhanced experience
+
    ```bash
    # Or source the configuration
    source ~/.zshrc
    ```
 
 4. **Configure Powerlevel10k** (first-time setup)
+
    ```bash
    p10k configure
    ```
@@ -414,16 +463,18 @@ git pull origin main
 ### Manual Installation
 
 1. **Backup your existing configurations**
+
    ```bash
    cp ~/.zshrc ~/.zshrc.backup
    cp ~/.config/ghostty/config ~/.config/ghostty/config.backup
    ```
 
 2. **Create symbolic links**
+
    ```bash
    # Zsh configuration
    ln -sf ~/dev/scripts/ghostty-terminal-dotfiles/zsh/.zshrc ~/.zshrc
-   
+
    # Ghostty configuration
    mkdir -p ~/.config/ghostty
    ln -sf ~/dev/scripts/ghostty-terminal-dotfiles/ghostty/config ~/.config/ghostty/config
@@ -485,12 +536,14 @@ weather         # Get weather information
 To keep your configurations in sync across multiple machines:
 
 1. **Push changes to repository**
+
    ```bash
    cd ~/dev/scripts/ghostty-terminal-dotfiles
    ./scripts/sync.sh
    ```
 
 2. **Pull updates on other machines**
+
    ```bash
    cd ~/dev/scripts/ghostty-terminal-dotfiles
    git pull origin main
@@ -536,11 +589,13 @@ background-opacity = 0.9
 ### Common Issues
 
 1. **Powerlevel10k not loading**
+
    ```bash
    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
    ```
 
 2. **Plugins not working**
+
    ```bash
    # Reinstall plugins
    rm -rf ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -548,10 +603,11 @@ background-opacity = 0.9
    ```
 
 3. **Ghostty config not loading**
+
    ```bash
    # Check config location
    ls -la ~/.config/ghostty/config
-   
+
    # Restart Ghostty completely
    killall ghostty && open -a Ghostty
    ```

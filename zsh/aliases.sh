@@ -1,4 +1,5 @@
 #!/bin/zsh
+# shellcheck shell=bash
 # Aliases for Ghostty + Zsh Configuration - 2025 Edition
 # Separated for better organization and maintainability
 
@@ -7,16 +8,16 @@
 # ============================================================================
 
 # Enhanced directory listing with modern tools
-if command -v eza &> /dev/null; then
-    alias ls='eza --icons --git --group-directories-first'
-    alias la='eza -la --icons --git --group-directories-first'
-    alias ll='eza -la --icons --git --time-style=long-iso --group-directories-first'
-    alias tree='eza --tree --icons --git'
-    alias lt='eza --tree --level=2 --icons'
+if command -v eza &>/dev/null; then
+  alias ls='eza --icons --git --group-directories-first'
+  alias la='eza -la --icons --git --group-directories-first'
+  alias ll='eza -la --icons --git --time-style=long-iso --group-directories-first'
+  alias tree='eza --tree --icons --git'
+  alias lt='eza --tree --level=2 --icons'
 else
-    alias ls='ls -G --color=auto'
-    alias la='ls -la'
-    alias ll='ls -la'
+  alias ls='ls -G --color=auto'
+  alias la='ls -la'
+  alias ll='ls -la'
 fi
 
 # Directory navigation
@@ -34,7 +35,7 @@ alias projects='cd ~/Projects'
 
 # System shortcuts
 alias reload='source ~/.zshrc && echo "✅ Zsh configuration reloaded"'
-alias path='echo -e ${PATH//:/\\n}'
+alias path='echo $PATH | tr ":" "\n"'
 alias ports='netstat -tulanp'
 alias ping='ping -c 5'
 alias fastping='ping -c 100 -s.2'
@@ -115,27 +116,27 @@ alias git-track='git update-index --no-assume-unchanged'
 # ============================================================================
 
 # Text processing with enhanced tools
-if command -v bat &> /dev/null; then
-    alias cat='bat --style=auto --theme=auto'
-    alias less='bat --style=auto --theme=auto'
-elif command -v batcat &> /dev/null; then
-    alias cat='batcat --style=auto --theme=auto'
-    alias less='batcat --style=auto --theme=auto'
+if command -v bat &>/dev/null; then
+  alias cat='bat --style=auto --theme=auto'
+  alias less='bat --style=auto --theme=auto'
+elif command -v batcat &>/dev/null; then
+  alias cat='batcat --style=auto --theme=auto'
+  alias less='batcat --style=auto --theme=auto'
 fi
 
 # Enhanced searching and navigation
-command -v fd &> /dev/null && alias find='fd'
-command -v rg &> /dev/null && alias grep='rg --smart-case'
-command -v procs &> /dev/null && alias ps='procs'
-command -v dust &> /dev/null && alias du='dust'
-command -v bottom &> /dev/null && alias top='btm'
-command -v duf &> /dev/null && alias df='duf'
-command -v httpie &> /dev/null && alias http='http --style=auto'
+command -v fd &>/dev/null && alias find='fd'
+command -v rg &>/dev/null && alias grep='rg --smart-case'
+command -v procs &>/dev/null && alias ps='procs'
+command -v dust &>/dev/null && alias du='dust'
+command -v bottom &>/dev/null && alias top='btm'
+command -v duf &>/dev/null && alias df='duf'
+command -v httpie &>/dev/null && alias http='http --style=auto'
 
 # Quick navigation with zoxide if available
-command -v zoxide &> /dev/null && {
-    alias cd='z'
-    alias cdi='zi'
+command -v zoxide &>/dev/null && {
+  alias cd='z'
+  alias cdi='zi'
 }
 
 # ============================================================================
@@ -166,15 +167,29 @@ alias nt='npm test'
 alias nb='npm run build'
 alias nr='npm run'
 alias nls='npm list --depth=0'
-alias nout='npm outdated'
 
-alias yi='yarn install'
-alias ya='yarn add'
-alias yad='yarn add --dev'
-alias ys='yarn start'
-alias yt='yarn test'
-alias yb='yarn build'
-alias yr='yarn run'
+# ============================================================================
+# AI INTEGRATION - Ollama
+# ============================================================================
+
+# Install Python dependencies for AI integration
+alias ainstall='pip install ollama'
+
+# Ghostty AI Integration with Ollama
+function ai() {
+  # Get the suggested command from the Python script
+  local suggestion
+  suggestion=$(python3 /Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py "$@")
+
+  # Display the suggested command to the user
+  echo "Suggested command: \`$suggestion\`"
+
+  # Ask for confirmation
+  read -r "REPLY?Execute this command? [y/N] "
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    eval "$suggestion"
+  fi
+}
 
 # Python development
 alias py='python3'
@@ -221,81 +236,83 @@ alias kns='kubectl config view --minify --output "jsonpath={..namespace}"'
 
 # Quick HTTP server with enhanced options
 serve() {
-    local port=${1:-8000}
-    local dir=${2:-.}
-    echo "🚀 Starting HTTP server on port $port in directory: $dir"
-    echo "📍 URL: http://localhost:$port"
-    if command -v python3 &> /dev/null; then
-        cd "$dir" && python3 -m http.server "$port"
-    elif command -v python &> /dev/null; then
-        cd "$dir" && python -m SimpleHTTPServer "$port"
-    else
-        echo "❌ Python not found"
-        return 1
-    fi
+  local port=${1:-8000}
+  local dir=${2:-.}
+  echo "🚀 Starting HTTP server on port $port in directory: $dir"
+  echo "📍 URL: http://localhost:$port"
+  if command -v python3 &>/dev/null; then
+    cd "$dir" && python3 -m http.server "$port"
+  elif command -v python &>/dev/null; then
+    cd "$dir" && python -m SimpleHTTPServer "$port"
+  else
+    echo "❌ Python not found"
+    return 1
+  fi
 }
 
 # Enhanced JSON processing with error handling
 json() {
-    if [ -t 0 ]; then
-        if [ -n "$1" ]; then
-            echo "$1" | jq . 2>/dev/null || echo "$1" | python3 -m json.tool
-        else
-            echo "Usage: json '<json_string>' or echo 'json' | json"
-        fi
+  if [ -t 0 ]; then
+    if [ -n "$1" ]; then
+      echo "$1" | jq . 2>/dev/null || echo "$1" | python3 -m json.tool
     else
-        jq . 2>/dev/null || python3 -m json.tool
+      echo "Usage: json '<json_string>' or echo 'json' | json"
     fi
+  else
+    jq . 2>/dev/null || python3 -m json.tool
+  fi
 }
 
 # Process management with enhanced feedback
 killp() {
-    if [ -z "$1" ]; then
-        echo "Usage: killp <process_name>"
-        echo "Available processes:"
-        ps aux | grep -v grep | awk '{print $11}' | sort | uniq | head -20
-        return 1
-    fi
-    
-    local pids=$(ps aux | grep -i "$1" | grep -v grep | awk '{print $2}')
-    if [ -n "$pids" ]; then
-        echo "Killing processes matching '$1':"
-        ps aux | grep -i "$1" | grep -v grep
-        echo "$pids" | xargs kill -9
-        echo "✅ Processes killed"
-    else
-        echo "❌ No processes found matching '$1'"
-    fi
+  if [ -z "$1" ]; then
+    echo "Usage: killp <process_name>"
+    echo "Available processes:"
+    ps -eo comm= | sort -u | head -20
+    return 1
+  fi
+
+  # Use pgrep for better process matching
+  local pids
+  pids=$(pgrep -if "$1")
+  if [ -n "$pids" ]; then
+    echo "Killing processes matching '$1':"
+    pgrep -ifl "$1"
+    echo "$pids" | xargs kill -9
+    echo "✅ Processes killed"
+  else
+    echo "❌ No processes found matching '$1'"
+  fi
 }
 
 # Enhanced directory creation and navigation
 mkcd() {
-    mkdir -p "$1" && cd "$1" && echo "📁 Created and entered: $(pwd)"
+  mkdir -p "$1" && cd "$1" && echo "📁 Created and entered: $(pwd)"
 }
 
 # Quick project initialization with templates
 initproj() {
-    local name=${1:-$(basename $(pwd))}
-    local type=${2:-node}
-    
-    echo "🚀 Initializing $type project: $name"
-    
-    case $type in
-        node|js|javascript)
-            npm init -y
-            echo "node_modules/\n*.log\n.env" > .gitignore
-            echo "console.log('Hello, $name!');" > index.js
-            ;;
-        python|py)
-            python3 -m venv venv
-            echo "venv/\n__pycache__/\n*.pyc\n.env" > .gitignore
-            echo "print('Hello, $name!')" > main.py
-            echo "# $name\n\nA Python project." > README.md
-            ;;
-        go)
-            go mod init "$name"
-            echo "# $name\n\nA Go project." > README.md
-            cat > main.go << EOF
+  local name=${1:-$(basename "$(pwd)")}
+  local type=${2:-node}
+
+  echo "🚀 Initializing $type project: $name"
+
+  case $type in
+  node | js | javascript)
+    npm init -y
+    printf "node_modules/\n*.log\n.env\n" >.gitignore
+    echo "console.log('Hello, $name!');" >index.js
+    ;;
+  python | py)
+    python3 -m venv venv
+    printf "venv/\n__pycache__/\n*.pyc\n.env\n" >.gitignore
+    echo "print('Hello, $name!')" >main.py
+    printf "# %s\n\nA Python project.\n" "$name" >README.md
+    ;;
+  go)
+    go mod init "$name"
+    printf "# %s\n\nA Go project.\n" "$name" >README.md
+    cat >main.go <<EOF
 package main
 
 import "fmt"
@@ -304,158 +321,158 @@ func main() {
     fmt.Println("Hello, $name!")
 }
 EOF
-            ;;
-        rust)
-            cargo init .
-            ;;
-        next|nextjs)
-            npx create-next-app@latest . --typescript --tailwind --eslint
-            ;;
-        *)
-            echo "Supported types: node, python, go, rust, next"
-            return 1
-            ;;
-    esac
-    
-    # Initialize git repository
-    git init
-    git add .
-    git commit -m "Initial commit: $type project setup"
-    echo "✅ Project '$name' initialized as $type project"
+    ;;
+  rust)
+    cargo init .
+    ;;
+  next | nextjs)
+    npx create-next-app@latest . --typescript --tailwind --eslint
+    ;;
+  *)
+    echo "Supported types: node, python, go, rust, next"
+    return 1
+    ;;
+  esac
+
+  # Initialize git repository
+  git init
+  git add .
+  git commit -m "Initial commit: $type project setup"
+  echo "✅ Project '$name' initialized as $type project"
 }
 
 # Enhanced archive extraction with progress
 extract() {
-    if [ -f "$1" ]; then
-        echo "📦 Extracting $1..."
-        case "$1" in
-            *.tar.bz2)   tar xjf "$1"     ;;
-            *.tar.gz)    tar xzf "$1"     ;;
-            *.bz2)       bunzip2 "$1"     ;;
-            *.rar)       unrar x "$1"     ;;
-            *.gz)        gunzip "$1"      ;;
-            *.tar)       tar xf "$1"      ;;
-            *.tbz2)      tar xjf "$1"     ;;
-            *.tgz)       tar xzf "$1"     ;;
-            *.zip)       unzip "$1"       ;;
-            *.Z)         uncompress "$1"  ;;
-            *.7z)        7z x "$1"        ;;
-            *.xz)        xz -d "$1"       ;;
-            *.lzma)      lzma -d "$1"     ;;
-            *)           echo "❌ '$1' cannot be extracted via extract()" ;;
-        esac
-        echo "✅ Extraction complete"
-    else
-        echo "❌ '$1' is not a valid file"
-    fi
+  if [ -f "$1" ]; then
+    echo "📦 Extracting $1..."
+    case "$1" in
+    *.tar.bz2) tar xjf "$1" ;;
+    *.tar.gz) tar xzf "$1" ;;
+    *.bz2) bunzip2 "$1" ;;
+    *.rar) unrar x "$1" ;;
+    *.gz) gunzip "$1" ;;
+    *.tar) tar xf "$1" ;;
+    *.tbz2) tar xjf "$1" ;;
+    *.tgz) tar xzf "$1" ;;
+    *.zip) unzip "$1" ;;
+    *.Z) uncompress "$1" ;;
+    *.7z) 7z x "$1" ;;
+    *.xz) xz -d "$1" ;;
+    *.lzma) lzma -d "$1" ;;
+    *) echo "❌ '$1' cannot be extracted via extract()" ;;
+    esac
+    echo "✅ Extraction complete"
+  else
+    echo "❌ '$1' is not a valid file"
+  fi
 }
 
 # Git repository cloning with automatic directory change
 gclone() {
-    if [ -z "$1" ]; then
-        echo "Usage: gclone <repository_url> [directory_name]"
-        return 1
-    fi
-    
-    local repo_url="$1"
-    local dir_name="${2:-$(basename "$repo_url" .git)}"
-    
-    echo "🔄 Cloning $repo_url..."
-    git clone "$repo_url" "$dir_name" && cd "$dir_name"
-    echo "✅ Repository cloned and entered: $(pwd)"
+  if [ -z "$1" ]; then
+    echo "Usage: gclone <repository_url> [directory_name]"
+    return 1
+  fi
+
+  local repo_url="$1"
+  local dir_name="${2:-$(basename "$repo_url" .git)}"
+
+  echo "🔄 Cloning $repo_url..."
+  git clone "$repo_url" "$dir_name" && cd "$dir_name" || exit
+  echo "✅ Repository cloned and entered: $(pwd)"
 }
 
 # Quick commit with automatic message generation
 gquick() {
-    local message="${1:-Quick update: $(date +'%Y-%m-%d %H:%M')}"
-    git add -A && git commit -m "$message" && echo "✅ Quick commit: $message"
+  local message="${1:-Quick update: $(date +'%Y-%m-%d %H:%M')}"
+  git add -A && git commit -m "$message" && echo "✅ Quick commit: $message"
 }
 
 # Create and push new branch with upstream tracking
 gnew() {
-    if [ -z "$1" ]; then
-        echo "Usage: gnew <branch-name>"
-        return 1
-    fi
-    
-    echo "🌿 Creating and pushing new branch: $1"
-    git checkout -b "$1" && git push -u origin "$1"
-    echo "✅ Branch '$1' created and pushed with upstream tracking"
+  if [ -z "$1" ]; then
+    echo "Usage: gnew <branch-name>"
+    return 1
+  fi
+
+  echo "🌿 Creating and pushing new branch: $1"
+  git checkout -b "$1" && git push -u origin "$1"
+  echo "✅ Branch '$1' created and pushed with upstream tracking"
 }
 
 # Enhanced weather function
 weather() {
-    local location=${1:-}
-    curl -s "wttr.in/$location?format=3"
+  local location=${1:-}
+  curl -s "wttr.in/$location?format=3"
 }
 
 # System information display
 sysinfo() {
-    echo "🖥️  System Information"
-    echo "===================="
-    echo "OS: $(uname -s) $(uname -r)"
-    echo "Shell: $SHELL"
-    echo "Terminal: $TERM"
-    echo "User: $(whoami)"
-    echo "Hostname: $(hostname)"
-    echo "Uptime: $(uptime | awk '{print $3,$4}' | sed 's/,//')"
-    echo "Load: $(uptime | awk -F'load average:' '{print $2}')"
-    if command -v free &> /dev/null; then
-        echo "Memory: $(free -h | grep Mem | awk '{print $3"/"$2}')"
-    fi
-    echo "Disk: $(df -h / | tail -1 | awk '{print $3"/"$2" ("$5" used)"}')"
+  echo "🖥️  System Information"
+  echo "===================="
+  echo "OS: $(uname -s) $(uname -r)"
+  echo "Shell: $SHELL"
+  echo "Terminal: $TERM"
+  echo "User: $(whoami)"
+  echo "Hostname: $(hostname)"
+  echo "Uptime: $(uptime | awk '{print $3,$4}' | sed 's/,//')"
+  echo "Load: $(uptime | awk -F'load average:' '{print $2}')"
+  if command -v free &>/dev/null; then
+    echo "Memory: $(free -h | grep Mem | awk '{print $3"/"$2}')"
+  fi
+  echo "Disk: $(df -h / | tail -1 | awk '{print $3"/"$2" ("$5" used)"}')"
 }
 
 # ============================================================================
 # FZF ENHANCED FUNCTIONS (if available)
 # ============================================================================
 
-if command -v fzf &> /dev/null; then
-    # Enhanced directory navigation with preview
-    fcd() {
-        local dir
-        dir=$(fd --type d 2> /dev/null | fzf --preview 'eza --tree --level=2 {} 2>/dev/null || ls -la {}' --preview-window=right:50%:wrap) && cd "$dir"
-    }
-    
-    # Enhanced file editing with preview
-    fcode() {
-        local file
-        file=$(fd --type f 2> /dev/null | fzf --preview 'bat --color=always {} 2>/dev/null || cat {}' --preview-window=right:60%:wrap) && code "$file"
-    }
-    
-    # Git branch switching with fzf
-    fgco() {
-        local branch
-        branch=$(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u | fzf --preview 'git log --oneline --graph --color=always {} | head -10') && git checkout "$branch"
-    }
-    
-    # Process killer with fzf and preview
-    fkill() {
-        local pid
-        pid=$(ps -ef | sed 1d | fzf -m --header='[kill:process]' | awk '{print $2}')
-        if [ "x$pid" != "x" ]; then
-            echo $pid | xargs kill -${1:-9}
-            echo "✅ Killed process(es): $pid"
-        fi
-    }
-    
-    # Docker container management
-    fdocker() {
-        local container
-        container=$(docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}" | fzf --header-lines=1 | awk '{print $1}')
-        if [ -n "$container" ]; then
-            echo "Selected container: $container"
-            echo "Available actions: exec, logs, stop, restart"
-            read "action?Choose action: "
-            case $action in
-                exec) docker exec -it "$container" /bin/bash || docker exec -it "$container" /bin/sh ;;
-                logs) docker logs -f "$container" ;;
-                stop) docker stop "$container" && echo "✅ Container stopped" ;;
-                restart) docker restart "$container" && echo "✅ Container restarted" ;;
-                *) echo "❌ Invalid action" ;;
-            esac
-        fi
-    }
+if command -v fzf &>/dev/null; then
+  # Enhanced directory navigation with preview
+  fcd() {
+    local dir
+    dir=$(fd --type d 2>/dev/null | fzf --preview 'eza --tree --level=2 {} 2>/dev/null || ls -la {}' --preview-window=right:50%:wrap) && cd "$dir" || exit
+  }
+
+  # Enhanced file editing with preview
+  fcode() {
+    local file
+    file=$(fd --type f 2>/dev/null | fzf --preview 'bat --color=always {} 2>/dev/null || cat {}' --preview-window=right:60%:wrap) && code "$file"
+  }
+
+  # Git branch switching with fzf
+  fgco() {
+    local branch
+    branch=$(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u | fzf --preview 'git log --oneline --graph --color=always {} | head -10') && git checkout "$branch"
+  }
+
+  # Process killer with fzf and preview
+  fkill() {
+    local pid
+    pid=$(ps -ef | sed 1d | fzf -m --header='[kill:process]' | awk '{print $2}')
+    if [ "x$pid" != "x" ]; then
+      echo "$pid" | xargs kill -"${1:-9}"
+      echo "✅ Killed process(es): $pid"
+    fi
+  }
+
+  # Docker container management
+  fdocker() {
+    local container action
+    container=$(docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}" | fzf --header-lines=1 | awk '{print $1}')
+    if [ -n "$container" ]; then
+      echo "Selected container: $container"
+      echo "Available actions: exec, logs, stop, restart"
+      read -r "action?Choose action: "
+      case $action in
+      exec) docker exec -it "$container" /bin/bash || docker exec -it "$container" /bin/sh ;;
+      logs) docker logs -f "$container" ;;
+      stop) docker stop "$container" && echo "✅ Container stopped" ;;
+      restart) docker restart "$container" && echo "✅ Container restarted" ;;
+      *) echo "❌ Invalid action" ;;
+      esac
+    fi
+  }
 fi
 
 # ============================================================================
@@ -464,35 +481,35 @@ fi
 
 # Quick note taking
 note() {
-    local note_file="$HOME/quick-notes.md"
-    if [ "$1" ]; then
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - $*" >> "$note_file"
-        echo "✅ Note added to $note_file"
-    else
-        code "$note_file"
-    fi
+  local note_file="$HOME/quick-notes.md"
+  if [ "$1" ]; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*" >>"$note_file"
+    echo "✅ Note added to $note_file"
+  else
+    code "$note_file"
+  fi
 }
 
 # Quick timer function
 timer() {
-    local seconds=${1:-300}  # Default 5 minutes
-    echo "⏱️  Timer set for $seconds seconds"
-    sleep "$seconds" && echo "⏰ Time's up!" && osascript -e 'display notification "Timer finished!" with title "Terminal Timer"'
+  local seconds=${1:-300} # Default 5 minutes
+  echo "⏱️  Timer set for $seconds seconds"
+  sleep "$seconds" && echo "⏰ Time's up!" && osascript -e 'display notification "Timer finished!" with title "Terminal Timer"'
 }
 
 # Password generator
 genpass() {
-    local length=${1:-16}
-    openssl rand -base64 "$length" | tr -d "=+/" | cut -c1-"$length"
+  local length=${1:-16}
+  openssl rand -base64 "$length" | tr -d "=+/" | cut -c1-"$length"
 }
 
 # QR code generator (requires qrencode)
 qr() {
-    if command -v qrencode &> /dev/null; then
-        echo "$1" | qrencode -t ansiutf8
-    else
-        echo "❌ qrencode not installed. Install with: brew install qrencode"
-    fi
+  if command -v qrencode &>/dev/null; then
+    echo "$1" | qrencode -t ansiutf8
+  else
+    echo "❌ qrencode not installed. Install with: brew install qrencode"
+  fi
 }
 
 # ============================================================================
@@ -519,13 +536,17 @@ alias cta='cat'
 # ============================================================================
 
 # Load work-specific aliases if available
+# shellcheck source=/dev/null
 [[ -f ~/.aliases.work ]] && source ~/.aliases.work
 
-# Load local machine-specific aliases if available  
+# Load local machine-specific aliases if available
+# shellcheck source=/dev/null
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
 echo "✅ Enhanced aliases loaded for Ghostty + Zsh (2025 Edition)"
-alias git-sync='git fetch --all && git pull'
+git-sync() {
+  git fetch --all && git pull
+}
 
 # npm/yarn shortcuts
 alias ni='npm install'
@@ -594,7 +615,9 @@ alias tarzip='tar -czf'
 alias tarunzip='tar -xzf'
 
 # Process management
-alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
+psg() {
+  pgrep -afi "$@"
+}
 alias killall-node='killall node'
 alias killall-chrome='killall "Google Chrome"'
 
@@ -619,22 +642,24 @@ alias diff-staged='code --diff'
 # ============================================================================
 
 # Only create these aliases if the tools are installed
-if command -v bat &> /dev/null; then
-    alias bathelp='bat --plain --language=help'
-    help() {
-        "$@" --help 2>&1 | bathelp
-    }
+if command -v bat &>/dev/null; then
+  bathelp() {
+    bat --plain --language=help
+  }
+  help() {
+    "$@" --help 2>&1 | bathelp
+  }
 fi
 
-if command -v fd &> /dev/null; then
-    alias fdh='fd --hidden'
-    alias fde='fd --extension'
+if command -v fd &>/dev/null; then
+  alias fdh='fd --hidden'
+  alias fde='fd --extension'
 fi
 
-if command -v rg &> /dev/null; then
-    alias rgi='rg --ignore-case'
-    alias rgf='rg --files'
-    alias rgt='rg --type'
+if command -v rg &>/dev/null; then
+  alias rgi='rg --ignore-case'
+  alias rgf='rg --files'
+  alias rgt='rg --type'
 fi
 
 # ============================================================================

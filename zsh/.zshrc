@@ -33,6 +33,23 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # ============================================================================
+# CUSTOM PROMPT CONFIGURATION
+# ============================================================================
+# A custom prompt with a VS Code/Copilot aesthetic.
+# This overrides the ZSH_THEME setting.
+ZSH_THEME=""
+autoload -U colors && colors
+
+# Right-side prompt (RPROMPT) - Time
+RPROMPT='%F{244}at %F{cyan}%T%f'
+
+# Main prompt (PROMPT)
+# Line 1: user@host in path
+# Line 2: ❯
+PROMPT='%F{cyan}%n%f@%F{magenta}%m%f %F{244}in%f %F{green}%~%f'
+PROMPT+=$'\n%F{blue}❯%f '
+
+# ============================================================================
 # GHOSTTY INTEGRATION - Enhanced for 2025
 # ============================================================================
 
@@ -495,11 +512,7 @@ zstyle ':completion:*:descriptions' format '%F{yellow}%d%f'
 
 # Faster completion loading
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
-    compinit
-else
-    compinit -C
-fi
+compinit -C  # Use fast loading by default
 
 # ============================================================================
 # POWERLEVEL10K INSTANT PROMPT

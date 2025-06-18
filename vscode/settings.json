@@ -102,5 +102,25 @@
   "editor.detectIndentation": false,
   "editor.rulers": [80, 120],
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 120
+  "editor.wordWrapColumn": 120,
+
+  // Problems panel and error reporting
+  "problems.autoReveal": true,
+  "problems.decorations.enabled": true,
+  "problems.showCurrentInStatus": true,
+  "problems.sortOrder": "severity",
+
+  // Enhanced shell script linting
+  "shellcheck.enableQuickFix": true,
+  "shellcheck.run": "onType",
+  "shellformat.effectLanguages": [
+    "shellscript",
+    "dockerfile",
+    "dotenv",
+    "hosts",
+    "jvmoptions",
+    "ignore",
+    "gitignore",
+    "properties"
+  ]
 }
