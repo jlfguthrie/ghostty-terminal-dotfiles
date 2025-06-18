@@ -113,6 +113,9 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # VS Code command line tools
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
+# Ghostty terminal command line tools
+export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
+
 # ============================================================================
 # MODERN COMMAND REPLACEMENTS - 2025 Edition
 # ============================================================================

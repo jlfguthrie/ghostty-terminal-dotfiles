@@ -279,7 +279,6 @@
       "mads-hartmann.bash-ide-vscode",
 
       // Language support
-      "ms-vscode.vscode-json",
       "redhat.vscode-yaml",
       "ms-vscode.vscode-typescript-next",
 
@@ -295,7 +294,7 @@
       "github.vscode-pull-request-github",
 
       // Themes and appearance
-      "ms-vscode.theme-tomorrowkit",
+      "github.github-vscode-theme",
       "pkief.material-icon-theme",
 
       // Productivity
@@ -305,9 +304,13 @@
       "golang.go",
       "rust-lang.rust-analyzer",
 
-      // Terminal enhancements
-      "tyriar.terminal-tabs"
+      // AI and modern development
+      "ms-vscode.vscode-json"
     ],
-    "unwantedRecommendations": ["ms-vscode.vscode-json-languageservice"]
+    "unwantedRecommendations": [
+      "ms-vscode.vscode-json-languageservice",
+      "ms-vscode.theme-tomorrowkit",
+      "tyriar.terminal-tabs"
+    ]
   }
 }

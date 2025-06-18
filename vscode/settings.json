@@ -82,6 +82,12 @@
   },
   "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.advanced": {},
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
   "workbench.startupEditor": "newUntitledFile",
   "workbench.editor.enablePreview": false,
   "workbench.tree.indent": 12,
