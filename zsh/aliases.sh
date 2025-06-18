@@ -156,7 +156,20 @@ alias nls='npm list --depth=0'
 function ai() {
   # Get the suggested command from the Python script
   local suggestion
-  suggestion=$("/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/.venv/bin/python" "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+  suggestion=$(python3 "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+
+  # Check if the suggestion starts with "Error:"
+  if [[ $suggestion == Error:* ]]; then
+    echo "$suggestion" >&2
+    return 1
+  fi
+
+  # Check if this is an answer mode response
+  if [[ $suggestion == ANSWER_MODE:* ]]; then
+    # Extract and display the answer
+    echo "${suggestion#ANSWER_MODE:}"
+    return 0
+  fi
 
   # Execute the suggested command
   eval "$suggestion"
@@ -166,7 +179,20 @@ function ai() {
 function aik() {
   # Get the suggested command from the Python script
   local suggestion
-  suggestion=$("/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/.venv/bin/python" "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+  suggestion=$(python3 "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+
+  # Check if the suggestion starts with "Error:"
+  if [[ $suggestion == Error:* ]]; then
+    echo "$suggestion" >&2
+    return 1
+  fi
+
+  # Check if this is an answer mode response
+  if [[ $suggestion == ANSWER_MODE:* ]]; then
+    # Extract and display the answer
+    echo "${suggestion#ANSWER_MODE:}"
+    return 0
+  fi
 
   # Display the suggested command to the user
   echo "Suggested command: \`$suggestion\`"
@@ -182,7 +208,20 @@ function aik() {
 function aie() {
   # Get the suggested command from the Python script
   local suggestion
-  suggestion=$("/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/.venv/bin/python" "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+  suggestion=$(python3 "/Users/jlfguthrie/dev/scripts/ghostty-terminal-dotfiles/ai/ghostty_ai.py" "$@")
+
+  # Check if the suggestion starts with "Error:"
+  if [[ $suggestion == Error:* ]]; then
+    echo "$suggestion" >&2
+    return 1
+  fi
+
+  # Check if this is an answer mode response
+  if [[ $suggestion == ANSWER_MODE:* ]]; then
+    # Extract and display the answer
+    echo "${suggestion#ANSWER_MODE:}"
+    return 0
+  fi
 
   # Allow user to edit the command
   echo "Suggested command: \`$suggestion\`"

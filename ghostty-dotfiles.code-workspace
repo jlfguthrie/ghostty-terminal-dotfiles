@@ -6,11 +6,42 @@
     }
   ],
   "settings": {
-    // Workspace-specific settings for Ghostty Dotfiles development
-    "workbench.colorTheme": "GitHub Dark",
+    // -----------------------------------------------------------------
+    // # Workspace Identity & UI
+    // Overriding the theme to your preferred global choice for consistency.
+    // -----------------------------------------------------------------
+    "workbench.colorTheme": "Tomorrow Night Blue",
     "workbench.startupEditor": "readme",
+    "workbench.iconTheme": "material-icon-theme", // Recommended below
 
-    // File associations for dotfiles
+    // -----------------------------------------------------------------
+    // # Core Editor & Ergonomics
+    // Bringing in your preferred power-user settings.
+    // -----------------------------------------------------------------
+    "editor.fontFamily": "JetBrains Mono Nerd Font",
+    "editor.fontSize": 14,
+    "editor.fontLigatures": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.rulers": [80, 120],
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 120,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+
+    // # ENHANCEMENT: Sticky scroll and bracket guides for better navigation.
+    "editor.stickyScroll.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.guides.bracketPairsHorizontal": true,
+    "editor.guides.highlightActiveBracketPair": true,
+
+    // -----------------------------------------------------------------
+    // # Dotfiles & Shell Script Specialization
+    // -----------------------------------------------------------------
     "files.associations": {
       "*.zsh": "shellscript",
       "*.sh": "shellscript",
@@ -18,62 +49,30 @@
       ".zshrc": "shellscript",
       ".bashrc": "shellscript",
       ".profile": "shellscript",
+      ".zprofile": "shellscript", // Added for completeness
+      ".zshenv": "shellscript", // Added for completeness
       "aliases": "shellscript",
       "aliases.sh": "shellscript",
       "install": "shellscript",
       "HANDOFF": "markdown"
     },
-
-    // Enhanced file watching for dotfiles
-    "files.watcherExclude": {
-      "**/.git/objects/**": true,
-      "**/.git/subtree-cache/**": true,
-      "**/node_modules/**": true,
-      "**/.hg/store/**": true,
-      "**/.dotfiles-backup-*/**": true,
-      "**/tmp/**": true,
-      "**/temp/**": true
-    },
-
-    // Terminal integration optimized for Ghostty
-    "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.integrated.profiles.osx": {
-      "zsh (Ghostty optimized)": {
-        "path": "/bin/zsh",
-        "args": ["-l"],
-        "env": {
-          "TERM": "ghostty",
-          "COLORTERM": "truecolor"
-        }
-      }
-    },
-
-    // Editor settings for shell scripts and configs
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": false,
-    "editor.rulers": [80, 120],
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 120,
-    "editor.fontFamily": "JetBrains Mono Nerd Font",
-    "editor.fontSize": 14,
-    "editor.fontLigatures": true,
-
-    // Language-specific settings
     "[shellscript]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format",
       "editor.formatOnSave": true,
       "editor.tabSize": 2,
       "editor.insertSpaces": true
     },
+    // # ENHANCEMENT: Pre-configured ShellCheck for real-time linting.
+    "shellcheck.run": "onType",
+    "shellcheck.enableQuickFix": true,
+
+    // -----------------------------------------------------------------
+    // # Rich Formatting for Other Config Files
+    // -----------------------------------------------------------------
     "[markdown]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
       "editor.formatOnSave": true,
-      "editor.wordWrap": "on",
-      "editor.quickSuggestions": {
-        "comments": "off",
-        "strings": "off",
-        "other": "off"
-      }
+      "editor.wordWrap": "on"
     },
     "[json]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -87,55 +86,70 @@
       "editor.defaultFormatter": "esbenp.prettier-vscode",
       "editor.formatOnSave": true
     },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.shellcheck": "explicit", // More specific fix-all
+      "source.organizeImports": "explicit"
+    },
 
-    // Git integration
-    "git.enableSmartCommit": true,
-    "git.confirmSync": false,
-    "git.autofetch": true,
-    "git.showProgress": true,
-    "git.decorations.enabled": true,
-
-    // Search settings
+    // -----------------------------------------------------------------
+    // # File & Search Scopes
+    // -----------------------------------------------------------------
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/.dotfiles-backup-*/**": true,
+      "**/tmp/**": true
+    },
     "search.exclude": {
       "**/.git": true,
       "**/.dotfiles-backup-*": true,
-      "**/node_modules": true,
-      "**/tmp": true,
-      "**/temp": true
+      "**/node_modules": true
     },
-
-    // File explorer settings with nesting
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
-      "README.md": "CHANGELOG.md, CONTRIBUTING.md, LICENSE, .gitignore, HANDOFF.md",
+      "README.md": "CHANGELOG.md, CONTRIBUTING.md, LICENSE, .gitignore, HANDOFF.md, *.code-workspace",
       "install.sh": "scripts/*.sh",
-      ".zshrc": ".zshrc.*, aliases.sh, .p10k.zsh",
-      "ghostty-dotfiles.code-workspace": "dotfiles-*.code-workspace"
+      ".zshrc": ".zshrc.*, aliases.sh, .p10k.zsh"
     },
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
 
-    // GitHub Copilot settings (2025 enhanced)
-    "github.copilot.enable": {
-      "*": true,
-      "yaml": true,
-      "plaintext": true,
-      "markdown": true,
-      "shellscript": true,
-      "ini": true
-    },
-    "github.copilot.advanced": {},
+    // -----------------------------------------------------------------
+    // # AI / GitHub Copilot
+    // Syncing with your advanced global configuration.
+    // -----------------------------------------------------------------
+    "github.copilot.enable": { "*": true }, // Simplified, as you enable for all
+    "inlineChat.enableV2": true,
+    "chat.tools.autoApprove": true,
+    "github.copilot.chat.agent.thinkingTool": true,
+    "github.copilot.chat.editor.temporalContext.enabled": true,
 
-    // Code formatting and linting
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
-      "source.organizeImports": "explicit"
+    // -----------------------------------------------------------------
+    // # Terminal & Git Integration (Inherited from your style)
+    // -----------------------------------------------------------------
+    "terminal.integrated.defaultProfile.osx": "zsh (Ghostty optimized)",
+    "terminal.integrated.profiles.osx": {
+      "zsh (Ghostty optimized)": {
+        "path": "/bin/zsh",
+        "args": ["-l"],
+        "env": { "TERM": "ghostty", "COLORTERM": "truecolor" }
+      }
     },
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
+    "terminal.integrated.shellIntegration.enabled": true,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "git.decorations.enabled": true,
 
-    // Spell checking for documentation
+    // -----------------------------------------------------------------
+    // # Code Quality & Spell Checking
+    // -----------------------------------------------------------------
+    // # ENHANCEMENT: Inline error visibility.
+    "errorLens.enabled": true,
+    "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+    "errorLens.fontStyleItalic": true,
     "cSpell.words": [
+      // Your custom dictionary
       "Ghostty",
       "dotfiles",
       "zshrc",
@@ -147,165 +161,89 @@
       "homebrew",
       "macos",
       "copilot",
-      "intellicommerce",
-      "xstra",
-      "astrata",
-      "jlfguthrie",
-      "autosuggestions",
+      "p10k",
       "keybind",
       "keybinds"
-    ],
-
-    // Performance optimizations
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true
+    ]
   },
   "tasks": {
     "version": "2.0.0",
     "tasks": [
+      // # ENHANCEMENT: Added task icons for better visibility in the UI.
       {
-        "label": "🚀 Install Ghostty Dotfiles",
+        "label": "$(rocket) Install Ghostty Dotfiles",
         "type": "shell",
         "command": "./install.sh",
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "presentation": {
-          "echo": true,
-          "reveal": "always",
-          "focus": false,
-          "panel": "shared",
-          "showReuseMessage": true,
-          "clear": false
-        },
+        "group": { "kind": "build", "isDefault": true },
+        "presentation": { "reveal": "always", "panel": "shared" },
         "problemMatcher": [],
         "detail": "Install the complete Ghostty dotfiles configuration"
       },
       {
-        "label": "🧪 Test Installation",
+        "label": "$(beaker) Test Installation",
         "type": "shell",
-        "command": "zsh",
-        "args": [
-          "-c",
-          "source ~/.zshrc && echo '✅ Configuration test successful'"
-        ],
+        "command": "zsh -c 'source ~/.zshrc && echo \"✅ Configuration test successful\"'",
         "group": "test",
-        "presentation": {
-          "echo": true,
-          "reveal": "always",
-          "focus": false,
-          "panel": "shared"
-        },
+        "presentation": { "reveal": "always", "panel": "shared" },
         "problemMatcher": [],
         "detail": "Test that the zsh configuration loads correctly"
       },
       {
-        "label": "💾 Backup Configurations",
+        "label": "$(archive) Backup Configurations",
         "type": "shell",
         "command": "./scripts/backup.sh",
         "group": "build",
-        "presentation": {
-          "echo": true,
-          "reveal": "always",
-          "focus": false,
-          "panel": "shared"
-        },
+        "presentation": { "reveal": "always", "panel": "shared" },
         "problemMatcher": [],
         "detail": "Create a backup of current configurations"
       },
       {
-        "label": "🔄 Sync Configurations",
+        "label": "$(sync) Sync Configurations",
         "type": "shell",
         "command": "./scripts/sync.sh",
         "group": "build",
-        "presentation": {
-          "echo": true,
-          "reveal": "always",
-          "focus": false,
-          "panel": "shared"
-        },
+        "presentation": { "reveal": "always", "panel": "shared" },
         "problemMatcher": [],
         "detail": "Sync local changes back to repository"
       },
       {
-        "label": "✅ Validate All Configs",
+        "label": "$(checklist) Validate All Configs",
         "type": "shell",
         "command": "./scripts/validate-all.sh",
         "group": "test",
-        "presentation": {
-          "echo": true,
-          "reveal": "always",
-          "focus": false,
-          "panel": "shared"
-        },
+        "presentation": { "reveal": "always", "panel": "shared" },
         "problemMatcher": [],
         "detail": "Validate syntax of all configuration files"
-      },
-      {
-        "label": "📋 Check Latest Versions",
-        "type": "shell",
-        "command": "bash",
-        "args": [
-          "-c",
-          "echo '📋 Checking tool versions...' && echo 'Ghostty:' && (ghostty --version 2>/dev/null || echo 'Not installed') && echo 'VS Code:' && (code --version 2>/dev/null || echo 'Not installed') && echo 'Node.js:' && (node --version 2>/dev/null || echo 'Not installed') && echo 'Homebrew:' && (brew --version 2>/dev/null || echo 'Not installed')"
-        ],
-        "group": "test",
-        "presentation": {
-          "echo": true,
-          "reveal": "always",
-          "focus": false,
-          "panel": "shared"
-        },
-        "problemMatcher": [],
-        "detail": "Check versions of all installed tools"
       }
     ]
   },
-  "launch": {
-    "version": "0.2.0",
-    "configurations": []
-  },
   "extensions": {
     "recommendations": [
-      // Shell and terminal
+      // # CORE: Shell, Git, and AI
       "timonwong.shellcheck",
       "foxundermoon.shell-format",
-      "mads-hartmann.bash-ide-vscode",
-
-      // Language support
-      "redhat.vscode-yaml",
-      "ms-vscode.vscode-typescript-next",
-
-      // Documentation
-      "davidanson.vscode-markdownlint",
-      "yzhang.markdown-all-in-one",
-      "bierner.markdown-emoji",
-
-      // Git and GitHub
       "eamodio.gitlens",
       "github.copilot",
       "github.copilot-chat",
       "github.vscode-pull-request-github",
 
-      // Themes and appearance
-      "github.github-vscode-theme",
-      "pkief.material-icon-theme",
-
-      // Productivity
+      // # CORE: Documentation & Formatting
       "esbenp.prettier-vscode",
-      "bradlc.vscode-tailwindcss",
-      "ms-python.python",
-      "golang.go",
-      "rust-lang.rust-analyzer",
+      "davidanson.vscode-markdownlint",
+      "yzhang.markdown-all-in-one",
+      "usernamehw.errorlens",
+      "SonarSource.sonarlint-vscode",
 
-      // AI and modern development
-      "ms-vscode.vscode-json"
+      // # APPEARANCE
+      "pkief.material-icon-theme",
+      "github.github-vscode-theme", // Kept as it was in original workspace
+
+      // # Language Support (good to have)
+      "redhat.vscode-yaml",
+      "ms-python.python"
     ],
     "unwantedRecommendations": [
-      "ms-vscode.vscode-json-languageservice",
-      "ms-vscode.theme-tomorrowkit",
+      //  "ms-vscode.theme-tomorrowkit", // Unwanted if you prefer your own theme
       "tyriar.terminal-tabs"
     ]
   }
