@@ -13,9 +13,8 @@ font-feature = "liga=1,calt=1,ss01=1,ss02=1,ss19=1"
 
 # Theme and Colors - Using Ghostty's built-in theme system
 theme = "Tomorrow Night"
-theme-light = "Tomorrow"
 background-opacity = 0.95
-background-blur-radius = 20
+background-blur = 20
 unfocused-split-opacity = 0.7
 
 # Window Configuration
@@ -24,7 +23,7 @@ window-theme = auto
 window-padding-x = 8
 window-padding-y = 8
 window-save-state = true
-window-new-tab-position = after
+window-new-tab-position = end
 
 # Terminal Features - Enhanced for 2025
 scrollback-limit = 100000
@@ -34,11 +33,10 @@ quit-after-last-window-closed = false
 # Shell Integration - Enhanced for development workflows
 # Use automatic detection but specify features we want
 shell-integration = detect
-shell-integration-features = cursor,sudo,title,jump,click
+shell-integration-features = cursor,sudo,title
 
 # Performance Optimizations
 auto-update-check = false
-gtk-single-instance = false
 macos-non-native-fullscreen = false
 macos-titlebar-style = transparent
 
@@ -53,7 +51,6 @@ click-repeat-interval = 300
 focus-follows-mouse = false
 mouse-hide-while-typing = true
 mouse-shift-capture = false
-selection-foreground = invert
 
 # Enhanced Keybindings - Optimized for 2025 development workflow
 keybind = cmd+t=new_tab
@@ -66,15 +63,15 @@ keybind = cmd+left_bracket=previous_tab
 keybind = cmd+right_bracket=next_tab
 
 # Tab navigation with numbers
-keybind = cmd+1=goto_tab:1
-keybind = cmd+2=goto_tab:2
-keybind = cmd+3=goto_tab:3
-keybind = cmd+4=goto_tab:4
-keybind = cmd+5=goto_tab:5
-keybind = cmd+6=goto_tab:6
-keybind = cmd+7=goto_tab:7
-keybind = cmd+8=goto_tab:8
-keybind = cmd+9=goto_tab:9
+keybind = cmd+one=goto_tab:1
+keybind = cmd+two=goto_tab:2
+keybind = cmd+three=goto_tab:3
+keybind = cmd+four=goto_tab:4
+keybind = cmd+five=goto_tab:5
+keybind = cmd+six=goto_tab:6
+keybind = cmd+seven=goto_tab:7
+keybind = cmd+eight=goto_tab:8
+keybind = cmd+nine=goto_tab:9
 
 # Shell Integration Specific Keybindings - Key feature of Ghostty
 keybind = cmd+up=jump_to_prompt:-1
@@ -94,7 +91,7 @@ keybind = cmd+shift+comma=reload_config
 keybind = cmd+shift+r=reset_terminal
 keybind = cmd+equal=increase_font_size:1
 keybind = cmd+minus=decrease_font_size:1
-keybind = cmd+0=reset_font_size
+keybind = cmd+zero=reset_font_size
 
 # Split navigation for multi-pane development
 keybind = cmd+shift+left=goto_split:left
