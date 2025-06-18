@@ -495,7 +495,7 @@ zstyle ':completion:*:descriptions' format '%F{yellow}%d%f'
 
 # Faster completion loading
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
     compinit
 else
     compinit -C
