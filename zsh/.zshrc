@@ -53,41 +53,37 @@ PROMPT+=$'\n%F{blue}❯%f '
 # GHOSTTY INTEGRATION - Enhanced for 2025
 # ============================================================================
 
-# Set TERM for optimal Ghostty experience (fallback to xterm-256color if ghostty not available)
-if [ "$TERM_PROGRAM" = "Ghostty" ]; then
-    export TERM="ghostty"
-else
-    export TERM="xterm-256color"
-fi
+# Set TERM for optimal Ghostty experience
+export TERM="xterm-256color"
 export COLORTERM="truecolor"
 
 # Enhanced Ghostty shell integration
 # Ghostty automatically injects shell integration, but we add manual fallback
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-    # Verify automatic integration is working
-    if ! type ghostty_prompt_mark &>/dev/null; then
-        # Fallback to manual integration if auto-injection failed
-        builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration" 2>/dev/null || true
-    fi
+  # Verify automatic integration is working
+  if ! type ghostty_prompt_mark &>/dev/null; then
+    # Fallback to manual integration if auto-injection failed
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration" 2>/dev/null || true
+  fi
 
-    # Enhanced terminal title for better VS Code integration
-    autoload -Uz add-zsh-hook
+  # Enhanced terminal title for better VS Code integration
+  autoload -Uz add-zsh-hook
 
-    function ghostty_set_title() {
-        # Set both tab title and window title
-        print -Pn "\e]0;%n@%m: %~\a"
-        print -Pn "\e]1;%~\a"
-    }
+  function ghostty_set_title() {
+    # Set both tab title and window title
+    print -Pn "\e]0;%n@%m: %~\a"
+    print -Pn "\e]1;%~\a"
+  }
 
-    add-zsh-hook precmd ghostty_set_title
+  add-zsh-hook precmd ghostty_set_title
 
-    # Mark command boundaries for better semantic selection
-    function ghostty_preexec() {
-        # Mark the start of command execution
-        print -Pn "\e]133;C\a"
-    }
+  # Mark command boundaries for better semantic selection
+  function ghostty_preexec() {
+    # Mark the start of command execution
+    print -Pn "\e]133;C\a"
+  }
 
-    add-zsh-hook preexec ghostty_preexec
+  add-zsh-hook preexec ghostty_preexec
 fi
 
 # ============================================================================
@@ -98,16 +94,16 @@ fi
 export NVM_DIR="$HOME/.nvm"
 # Lazy load NVM for faster shell startup
 nvm() {
-    unset -f nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm "$@"
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm "$@"
 }
 
 # Python with pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 fi
 
 # Go development
@@ -138,46 +134,46 @@ export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
 # ============================================================================
 
 # Enhanced file operations
-if command -v eza &> /dev/null; then
-    alias ls='eza --icons --git --group-directories-first'
-    alias ll='eza -la --icons --git --time-style=long-iso --group-directories-first'
-    alias la='eza -la --icons --git --group-directories-first'
-    alias tree='eza --tree --icons --git'
-    alias lt='eza --tree --level=2 --icons'
+if command -v eza &>/dev/null; then
+  alias ls='eza --icons --git --group-directories-first'
+  alias ll='eza -la --icons --git --time-style=long-iso --group-directories-first'
+  alias la='eza -la --icons --git --group-directories-first'
+  alias tree='eza --tree --icons --git'
+  alias lt='eza --tree --level=2 --icons'
 else
-    alias ls='ls -G --color=auto'
-    alias ll='ls -la'
-    alias la='ls -la'
+  alias ls='ls -G --color=auto'
+  alias ll='ls -la'
+  alias la='ls -la'
 fi
 
 # Enhanced text processing
-command -v bat &> /dev/null && alias cat='bat --style=auto --theme=auto'
-command -v batcat &> /dev/null && alias cat='batcat --style=auto --theme=auto'
+command -v bat &>/dev/null && alias cat='bat --style=auto --theme=auto'
+command -v batcat &>/dev/null && alias cat='batcat --style=auto --theme=auto'
 
 # Enhanced searching and navigation
-command -v fd &> /dev/null && alias find='fd'
-command -v rg &> /dev/null && alias grep='rg --smart-case'
-command -v fzf &> /dev/null && {
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+command -v fd &>/dev/null && alias find='fd'
+command -v rg &>/dev/null && alias grep='rg --smart-case'
+command -v fzf &>/dev/null && {
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 }
 
 # Enhanced system monitoring
-command -v procs &> /dev/null && alias ps='procs'
-command -v dust &> /dev/null && alias du='dust'
-command -v bottom &> /dev/null && alias top='btm'
-command -v duf &> /dev/null && alias df='duf'
+command -v procs &>/dev/null && alias ps='procs'
+command -v dust &>/dev/null && alias du='dust'
+command -v bottom &>/dev/null && alias top='btm'
+command -v duf &>/dev/null && alias df='duf'
 
 # Enhanced git tools
-command -v delta &> /dev/null && {
-    export GIT_PAGER='delta'
-    alias gdiff='git diff | delta'
+command -v delta &>/dev/null && {
+  export GIT_PAGER='delta'
+  alias gdiff='git diff | delta'
 }
 
 # Enhanced JSON/YAML processing
-command -v jq &> /dev/null && alias json_format='jq'
-command -v yq &> /dev/null && alias yaml_format='yq'
+command -v jq &>/dev/null && alias json_format='jq'
+command -v yq &>/dev/null && alias yaml_format='yq'
 
 # ============================================================================
 # GIT ENHANCEMENTS - Optimized for Ghostty's semantic selection
@@ -216,21 +212,21 @@ alias gstl='git stash list'
 
 # Advanced git functions
 gclone() {
-    git clone "$1" && cd "$(basename "$1" .git)"
+  git clone "$1" && cd "$(basename "$1" .git)"
 }
 
 # Quick commit with automatic message
 gquick() {
-    git add -A && git commit -m "${1:-Quick update}"
+  git add -A && git commit -m "${1:-Quick update}"
 }
 
 # Create and push new branch
 gnew() {
-    if [ -z "$1" ]; then
-        echo "Usage: gnew <branch-name>"
-        return 1
-    fi
-    git checkout -b "$1" && git push -u origin "$1"
+  if [ -z "$1" ]; then
+    echo "Usage: gnew <branch-name>"
+    return 1
+  fi
+  git checkout -b "$1" && git push -u origin "$1"
 }
 
 # ============================================================================
@@ -245,40 +241,40 @@ alias cw='code --wait'
 
 # Enhanced project management
 cproj() {
-    local project_dir="$HOME/dev"
-    if [ -n "$1" ]; then
-        if [ -d "$project_dir/$1" ]; then
-            cd "$project_dir/$1" && code .
-        else
-            echo "Project '$1' not found in $project_dir"
-            return 1
-        fi
+  local project_dir="$HOME/dev"
+  if [ -n "$1" ]; then
+    if [ -d "$project_dir/$1" ]; then
+      cd "$project_dir/$1" && code .
     else
-        echo "Available projects:"
-        eza -1 "$project_dir/" 2>/dev/null || ls -1 "$project_dir/"
+      echo "Project '$1' not found in $project_dir"
+      return 1
     fi
+  else
+    echo "Available projects:"
+    eza -1 "$project_dir/" 2>/dev/null || ls -1 "$project_dir/"
+  fi
 }
 
 # Open git repository in VS Code with branch info
 cgit() {
-    local repo_url=$(git remote get-url origin 2>/dev/null)
-    local branch=$(git branch --show-current 2>/dev/null)
-    if [ -n "$repo_url" ]; then
-        echo "Opening repository (branch: ${branch:-unknown}) in VS Code..."
-        code .
-    else
-        echo "Not in a git repository"
-        return 1
-    fi
+  local repo_url=$(git remote get-url origin 2>/dev/null)
+  local branch=$(git branch --show-current 2>/dev/null)
+  if [ -n "$repo_url" ]; then
+    echo "Opening repository (branch: ${branch:-unknown}) in VS Code..."
+    code .
+  else
+    echo "Not in a git repository"
+    return 1
+  fi
 }
 
 # Quick VS Code workspace management
 cworkspace() {
-    if [ -f "*.code-workspace" ]; then
-        code *.code-workspace
-    else
-        code .
-    fi
+  if [ -f "*.code-workspace" ]; then
+    code *.code-workspace
+  else
+    code .
+  fi
 }
 
 # ============================================================================
@@ -287,119 +283,119 @@ cworkspace() {
 
 # Quick HTTP server with enhanced options
 serve() {
-    local port=${1:-8000}
-    local dir=${2:-.}
-    echo "🚀 Starting HTTP server on port $port in directory: $dir"
-    echo "📍 URL: http://localhost:$port"
-    if command -v python3 &> /dev/null; then
-        cd "$dir" && python3 -m http.server "$port"
-    elif command -v python &> /dev/null; then
-        cd "$dir" && python -m SimpleHTTPServer "$port"
-    else
-        echo "❌ Python not found"
-        return 1
-    fi
+  local port=${1:-8000}
+  local dir=${2:-.}
+  echo "🚀 Starting HTTP server on port $port in directory: $dir"
+  echo "📍 URL: http://localhost:$port"
+  if command -v python3 &>/dev/null; then
+    cd "$dir" && python3 -m http.server "$port"
+  elif command -v python &>/dev/null; then
+    cd "$dir" && python -m SimpleHTTPServer "$port"
+  else
+    echo "❌ Python not found"
+    return 1
+  fi
 }
 
 # Enhanced JSON processing with error handling
 json_pretty() {
-    if [ -t 0 ]; then
-        if [ -n "$1" ]; then
-            echo "$1" | jq . 2>/dev/null || echo "$1" | python3 -m json.tool
-        else
-            echo "Usage: json_pretty '<json_string>' or echo 'json' | json_pretty"
-        fi
+  if [ -t 0 ]; then
+    if [ -n "$1" ]; then
+      echo "$1" | jq . 2>/dev/null || echo "$1" | python3 -m json.tool
     else
-        jq . 2>/dev/null || python3 -m json.tool
+      echo "Usage: json_pretty '<json_string>' or echo 'json' | json_pretty"
     fi
+  else
+    jq . 2>/dev/null || python3 -m json.tool
+  fi
 }
 
 # Process management with enhanced feedback
 killp() {
-    if [ -z "$1" ]; then
-        echo "Usage: killp <process_name>"
-        echo "Available processes:"
-        ps aux | grep -v grep | awk '{print $11}' | sort | uniq
-        return 1
-    fi
+  if [ -z "$1" ]; then
+    echo "Usage: killp <process_name>"
+    echo "Available processes:"
+    ps aux | grep -v grep | awk '{print $11}' | sort | uniq
+    return 1
+  fi
 
-    local pids=$(ps aux | grep -i "$1" | grep -v grep | awk '{print $2}')
-    if [ -n "$pids" ]; then
-        echo "Killing processes matching '$1':"
-        ps aux | grep -i "$1" | grep -v grep
-        echo "$pids" | xargs kill -9
-        echo "✅ Processes killed"
-    else
-        echo "❌ No processes found matching '$1'"
-    fi
+  local pids=$(ps aux | grep -i "$1" | grep -v grep | awk '{print $2}')
+  if [ -n "$pids" ]; then
+    echo "Killing processes matching '$1':"
+    ps aux | grep -i "$1" | grep -v grep
+    echo "$pids" | xargs kill -9
+    echo "✅ Processes killed"
+  else
+    echo "❌ No processes found matching '$1'"
+  fi
 }
 
 # Enhanced directory creation and navigation
 mkcd() {
-    mkdir -p "$1" && cd "$1" && echo "📁 Created and entered: $(pwd)"
+  mkdir -p "$1" && cd "$1" && echo "📁 Created and entered: $(pwd)"
 }
 
 # Quick project initialization
 initproj() {
-    local name=${1:-$(basename $(pwd))}
-    local type=${2:-node}
+  local name=${1:-$(basename $(pwd))}
+  local type=${2:-node}
 
-    case $type in
-        node|js|javascript)
-            npm init -y
-            echo "node_modules/" > .gitignore
-            echo "*.log" >> .gitignore
-            ;;
-        python|py)
-            python3 -m venv venv
-            echo "venv/" > .gitignore
-            echo "__pycache__/" >> .gitignore
-            echo "*.pyc" >> .gitignore
-            ;;
-        go)
-            go mod init "$name"
-            echo "# $name\n\nA Go project." > README.md
-            ;;
-        rust)
-            cargo init .
-            ;;
-        *)
-            echo "Supported types: node, python, go, rust"
-            return 1
-            ;;
-    esac
+  case $type in
+  node | js | javascript)
+    npm init -y
+    echo "node_modules/" >.gitignore
+    echo "*.log" >>.gitignore
+    ;;
+  python | py)
+    python3 -m venv venv
+    echo "venv/" >.gitignore
+    echo "__pycache__/" >>.gitignore
+    echo "*.pyc" >>.gitignore
+    ;;
+  go)
+    go mod init "$name"
+    echo "# $name\n\nA Go project." >README.md
+    ;;
+  rust)
+    cargo init .
+    ;;
+  *)
+    echo "Supported types: node, python, go, rust"
+    return 1
+    ;;
+  esac
 
-    git init
-    echo "# $name" > README.md
-    git add .
-    git commit -m "Initial commit"
-    echo "✅ Project '$name' initialized as $type project"
+  git init
+  echo "# $name" >README.md
+  git add .
+  git commit -m "Initial commit"
+  echo "✅ Project '$name' initialized as $type project"
 }
 
 # Enhanced archive extraction
 extract() {
-    if [ -f "$1" ]; then
-        echo "📦 Extracting $1..."
-        case "$1" in
-            *.tar.bz2)   tar xjf "$1"     ;;
-            *.tar.gz)    tar xzf "$1"     ;;
-            *.bz2)       bunzip2 "$1"     ;;
-            *.rar)       unrar x "$1"     ;;
-            *.gz)        gunzip "$1"      ;;
-            *.tar)       tar xf "$1"      ;;
-            *.tbz2)      tar xjf "$1"     ;;
-            *.tgz)       tar xzf "$1"     ;;
-            *.zip)       unzip "$1"       ;;
-            *.Z)         uncompress "$1"  ;;
-            *.7z)        7z x "$1"        ;;
-            *.xz)        xz -d "$1"       ;;
-            *.lzma)      lzma -d "$1"     ;;
-            *)           echo "❌ '$1' cannot be extracted via extract()" ;;
-        esac
-        echo "✅ Extraction complete"
-    else
-        echo "❌ '$1' is not a valid file"
-    fi
+  if [ -f "$1" ]; then
+    echo "📦 Extracting $1..."
+    case "$1" in
+    *.tar.bz2) tar xjf "$1" ;;
+    *.tar.gz) tar xzf "$1" ;;
+    *.bz2) bunzip2 "$1" ;;
+    *.rar) unrar x "$1" ;;
+    *.gz) gunzip "$1" ;;
+    *.tar) tar xf "$1" ;;
+    *.tbz2) tar xjf "$1" ;;
+    *.tgz) tar xzf "$1" ;;
+    *.zip) unzip "$1" ;;
+    *.Z) uncompress "$1" ;;
+    *.7z) 7z x "$1" ;;
+    *.xz) xz -d "$1" ;;
+    *.lzma) lzma -d "$1" ;;
+    *) echo "❌ '$1' cannot be extracted via extract()" ;;
+    esac
+    echo "✅ Extraction complete"
+  else
+    echo "❌ '$1' is not a valid file"
+  fi
 }
 
 # ============================================================================
@@ -427,22 +423,22 @@ alias dcr='docker-compose restart'
 
 # Advanced docker functions
 dsh() {
-    local container=${1:-$(docker ps --format "{{.Names}}" | head -1)}
-    if [ -n "$container" ]; then
-        echo "🐚 Entering container: $container"
-        docker exec -it "$container" /bin/bash || docker exec -it "$container" /bin/sh
-    else
-        echo "❌ No running containers found"
-    fi
+  local container=${1:-$(docker ps --format "{{.Names}}" | head -1)}
+  if [ -n "$container" ]; then
+    echo "🐚 Entering container: $container"
+    docker exec -it "$container" /bin/bash || docker exec -it "$container" /bin/sh
+  else
+    echo "❌ No running containers found"
+  fi
 }
 
 dlogs() {
-    local container=${1:-$(docker ps --format "{{.Names}}" | head -1)}
-    if [ -n "$container" ]; then
-        docker logs -f "$container"
-    else
-        echo "❌ No running containers found"
-    fi
+  local container=${1:-$(docker ps --format "{{.Names}}" | head -1)}
+  if [ -n "$container" ]; then
+    docker logs -f "$container"
+  else
+    echo "❌ No running containers found"
+  fi
 }
 
 # Kubernetes shortcuts with better formatting
@@ -459,13 +455,13 @@ alias kns='kubectl config view --minify --output "jsonpath={..namespace}"'
 
 # Enhanced kubernetes functions
 kshell() {
-    local pod=${1:-$(kubectl get pods -o name | head -1 | cut -d/ -f2)}
-    if [ -n "$pod" ]; then
-        echo "🐚 Entering pod: $pod"
-        kubectl exec -it "$pod" -- /bin/bash || kubectl exec -it "$pod" -- /bin/sh
-    else
-        echo "❌ No pods found"
-    fi
+  local pod=${1:-$(kubectl get pods -o name | head -1 | cut -d/ -f2)}
+  if [ -n "$pod" ]; then
+    echo "🐚 Entering pod: $pod"
+    kubectl exec -it "$pod" -- /bin/bash || kubectl exec -it "$pod" -- /bin/sh
+  else
+    echo "❌ No pods found"
+  fi
 }
 
 # ============================================================================
@@ -512,15 +508,20 @@ zstyle ':completion:*:descriptions' format '%F{yellow}%d%f'
 
 # Faster completion loading
 autoload -Uz compinit
-compinit -C  # Use fast loading by default
+compinit -C # Use fast loading by default
 
 # ============================================================================
 # POWERLEVEL10K INSTANT PROMPT
 # ============================================================================
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -n "${XDG_CACHE_HOME}" ]]; then
+  _p10k_instant_prompt_file="${XDG_CACHE_HOME}/p10k-instant-prompt-${USER}.zsh"
+else
+  _p10k_instant_prompt_file="$HOME/.cache/p10k-instant-prompt-${USER}.zsh"
+fi
+if [[ -r "$_p10k_instant_prompt_file" ]]; then
+  source "$_p10k_instant_prompt_file"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
@@ -531,35 +532,35 @@ fi
 # ============================================================================
 
 # Enhanced FZF setup if available
-if command -v fzf &> /dev/null; then
-    # Key bindings
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if command -v fzf &>/dev/null; then
+  # Key bindings
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-    # Custom functions using fzf
-    fcd() {
-        local dir
-        dir=$(fd --type d 2> /dev/null | fzf --preview 'eza --tree --level=2 {}' || find . -type d 2> /dev/null | fzf) && cd "$dir"
-    }
+  # Custom functions using fzf
+  fcd() {
+    local dir
+    dir=$(fd --type d 2>/dev/null | fzf --preview 'eza --tree --level=2 {}' || find . -type d 2>/dev/null | fzf) && cd "$dir"
+  }
 
-    fcode() {
-        local file
-        file=$(fd --type f 2> /dev/null | fzf --preview 'bat --color=always {}' || find . -type f 2> /dev/null | fzf) && code "$file"
-    }
+  fcode() {
+    local file
+    file=$(fd --type f 2>/dev/null | fzf --preview 'bat --color=always {}' || find . -type f 2>/dev/null | fzf) && code "$file"
+  }
 
-    # Git integration with fzf
-    fgco() {
-        local branch
-        branch=$(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u | fzf) && git checkout "$branch"
-    }
+  # Git integration with fzf
+  fgco() {
+    local branch
+    branch=$(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u | fzf) && git checkout "$branch"
+  }
 
-    # Process killer with fzf
-    fkill() {
-        local pid
-        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-        if [ "x$pid" != "x" ]; then
-            echo $pid | xargs kill -${1:-9}
-        fi
-    }
+  # Process killer with fzf
+  fkill() {
+    local pid
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    if [ "x$pid" != "x" ]; then
+      echo $pid | xargs kill -${1:-9}
+    fi
+  }
 fi
 
 # ============================================================================
@@ -582,8 +583,8 @@ fi
 
 # Show Ghostty integration status
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-    echo "✅ Ghostty shell integration active"
-    echo "💡 Use cmd+up/down to navigate prompts, cmd+click to select command output"
+  echo "✅ Ghostty shell integration active"
+  echo "💡 Use cmd+up/down to navigate prompts, cmd+click to select command output"
 else
-    echo "ℹ️  Running outside Ghostty - some features may be limited"
+  echo "ℹ️  Running outside Ghostty - some features may be limited"
 fi
